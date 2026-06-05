@@ -1,0 +1,198 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { Check, ChevronLeft, Pause, Play, RotateCcw, Timer, Flame } from "lucide-react";
+
+export const Route = createFileRoute("/student/workout")({
+  component: StudentWorkout,
+});
+
+type Exercise = {
+  id: string;
+  name: string;
+  sets: number;
+  reps: string;
+  load: string;
+  rest: number; // seconds
+};
+
+const initial: Exercise[] = [
+  { id: "1", name: "Bench Press", sets: 4, reps: "8-10", load: "70 kg", rest: 90 },
+  { id: "2", name: "Barbell Row", sets: 4, reps: "8", load: "60 kg", rest: 90 },
+  { id: "3", name: "Overhead Press", sets: 3, reps: "10", load: "40 kg", rest: 60 },
+  { id: "4", name: "Lat Pulldown", sets: 3, reps: "12", load: "50 kg", rest: 60 },
+  { id: "5", name: "Tricep Pushdown", sets: 3, reps: "15", load: "30 kg", rest: 45 },
+  { id: "6", name: "Dumbbell Curl", sets: 3, reps: "12", load: "14 kg", rest: 45 },
+];
+
+function StudentWorkout() {
+  const [done, setDone] = useState<Record<string, number>>({});
+  const [timer, setTimer] = useState<{ exId: string; remaining: number; running: boolean } | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (timer?.running) {
+      intervalRef.current = setInterval(() => {
+        setTimer((t) => {
+          if (!t) return t;
+          if (t.remaining <= 1) return { ...t, remaining: 0, running: false };
+          return { ...t, remaining: t.remaining - 1 };
+        });
+      }, 1000);
+    }
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [timer?.running]);
+
+  const completeSet = (ex: Exercise) => {
+    setDone((d) => ({ ...d, [ex.id]: Math.min(ex.sets, (d[ex.id] ?? 0) + 1) }));
+    setTimer({ exId: ex.id, remaining: ex.rest, running: true });
+  };
+
+  const totalSets = initial.reduce((s, e) => s + e.sets, 0);
+  const completedSets = Object.values(done).reduce((s, v) => s + v, 0);
+  const pct = Math.round((completedSets / totalSets) * 100);
+
+  return (
+    <div className="mx-auto min-h-screen max-w-md bg-background text-foreground">
+      <div className="grid-bg absolute inset-x-0 top-0 h-64 opacity-30 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+      <div className="relative px-5 pb-32 pt-6">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground">
+            <ChevronLeft className="h-4 w-4" />
+          </Link>
+          <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs">
+            <Flame className="h-3 w-3 text-neon" /> Day 3 / 5
+          </div>
+        </div>
+
+        <header className="mt-6">
+          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Today's Session</div>
+          <h1 className="mt-2 text-3xl font-bold leading-tight">
+            Hypertrophy
+            <br />
+            <span className="neon-text">Upper Body</span>
+          </h1>
+        </header>
+
+        <div className="mt-6 rounded-2xl border border-border bg-card p-4">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Progress</span>
+            <span className="font-semibold">{completedSets}/{totalSets} sets</span>
+          </div>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-2">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-neon to-neon-blue transition-all"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        </div>
+
+        <ul className="mt-6 space-y-3">
+          {initial.map((ex, i) => {
+            const completedForEx = done[ex.id] ?? 0;
+            const isComplete = completedForEx >= ex.sets;
+            return (
+              <li
+                key={ex.id}
+                className={`rounded-2xl border bg-card p-4 transition ${
+                  isComplete ? "border-neon/40 opacity-70" : "border-border"
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-1">
+                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                      Exercise {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h3 className={`mt-0.5 text-lg font-semibold ${isComplete ? "line-through" : ""}`}>
+                      {ex.name}
+                    </h3>
+                    <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                      <Chip>{ex.sets} sets</Chip>
+                      <Chip>{ex.reps} reps</Chip>
+                      <Chip tone="blue">{ex.load}</Chip>
+                      <Chip>{ex.rest}s rest</Chip>
+                    </div>
+                    {/* set pips */}
+                    <div className="mt-3 flex gap-1.5">
+                      {Array.from({ length: ex.sets }).map((_, k) => (
+                        <div
+                          key={k}
+                          className={`h-1.5 flex-1 rounded-full ${
+                            k < completedForEx ? "bg-neon shadow-[0_0_8px_var(--neon)]" : "bg-surface-2"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => !isComplete && completeSet(ex)}
+                    disabled={isComplete}
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 transition ${
+                      isComplete
+                        ? "border-neon bg-neon text-primary-foreground"
+                        : "border-neon/50 text-neon hover:bg-neon hover:text-primary-foreground hover:neon-glow"
+                    }`}
+                    aria-label="Mark set complete"
+                  >
+                    <Check className="h-6 w-6" />
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {/* Floating rest timer */}
+      {timer && timer.remaining > 0 && (
+        <div className="fixed inset-x-0 bottom-6 z-40 mx-auto max-w-md px-5">
+          <div className="flex items-center gap-3 rounded-2xl border border-neon-blue/40 bg-card/95 p-4 backdrop-blur neon-glow-blue">
+            <div className="relative flex h-12 w-12 items-center justify-center">
+              <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="var(--surface-2)" strokeWidth="3" />
+                <circle
+                  cx="18" cy="18" r="15" fill="none"
+                  stroke="var(--neon-blue)" strokeWidth="3" strokeLinecap="round"
+                  strokeDasharray={`${(timer.remaining / (initial.find(e => e.id === timer.exId)?.rest ?? 60)) * 94} 94`}
+                />
+              </svg>
+              <Timer className="h-4 w-4 text-neon-blue" />
+            </div>
+            <div className="flex-1">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Rest</div>
+              <div className="text-2xl font-bold tabular-nums neon-text-blue">
+                {String(Math.floor(timer.remaining / 60)).padStart(1, "0")}:{String(timer.remaining % 60).padStart(2, "0")}
+              </div>
+            </div>
+            <button
+              onClick={() => setTimer((t) => (t ? { ...t, running: !t.running } : t))}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-foreground"
+            >
+              {timer.running ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={() => setTimer(null)}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Chip({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "blue" }) {
+  return (
+    <span
+      className={`rounded-full border px-2 py-0.5 ${
+        tone === "blue"
+          ? "border-neon-blue/40 bg-neon-blue/10 text-neon-blue"
+          : "border-border bg-surface-2 text-muted-foreground"
+      }`}
+    >
+      {children}
+    </span>
+  );
+}
