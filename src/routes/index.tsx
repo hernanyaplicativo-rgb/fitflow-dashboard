@@ -1,76 +1,84 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight } from "lucide-react";
+import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const screens = [
+const perfis = [
+  {
+    to: "/owner",
+    title: "Dono do Ginásio",
+    subtitle: "Painel Multi-Ginásio · Web",
+    desc: "Selecione o ginásio, veja faturação em CVE, alunos ativos e assinatura.",
+    icon: Building2,
+    tone: "neon" as const,
+  },
   {
     to: "/trainer",
-    title: "Workout Builder",
-    subtitle: "Trainer · Web Dashboard",
-    desc: "Assign athletes, design splits, dial in sets, reps, load and rest.",
+    title: "Criador de Treinos",
+    subtitle: "Treinador · Painel Web",
+    desc: "Monte fichas com séries, repetições, carga e descanso por aluno.",
     icon: Dumbbell,
-    tone: "neon" as const,
+    tone: "blue" as const,
   },
   {
     to: "/student/workout",
-    title: "Today's Session",
-    subtitle: "Athlete · PWA Mobile",
-    desc: "A focused checklist for the gym floor with a floating rest timer.",
+    title: "Treino de Hoje",
+    subtitle: "Aluno · App Mobile",
+    desc: "Checklist focado para o ginásio com cronómetro de descanso flutuante.",
     icon: ClipboardList,
-    tone: "blue" as const,
-  },
-  {
-    to: "/partner",
-    title: "Marketplace Console",
-    subtitle: "Partner · Web Dashboard",
-    desc: "Sales, inventory and live order tracking for partner stores.",
-    icon: ShoppingBag,
     tone: "neon" as const,
-  },
-  {
-    to: "/student/nutritionist",
-    title: "AI Nutritionist",
-    subtitle: "Athlete · PWA Mobile",
-    desc: "Conversational meal plans tied to biometric goals.",
-    icon: Sparkles,
-    tone: "blue" as const,
   },
   {
     to: "/student/equipment",
-    title: "Machine Guide",
-    subtitle: "Athlete · QR Scan",
-    desc: "Instant tutorial when you scan a sticker on the equipment.",
+    title: "Guia de Máquinas",
+    subtitle: "Aluno · Leitura de QR Code",
+    desc: "Tutorial instantâneo ao ler o autocolante do equipamento.",
     icon: QrCode,
+    tone: "blue" as const,
+  },
+  {
+    to: "/student/nutritionist",
+    title: "Nutricionista IA",
+    subtitle: "Aluno · App Mobile",
+    desc: "Planos alimentares com produtos locais e metas biométricas.",
+    icon: Sparkles,
     tone: "neon" as const,
+  },
+  {
+    to: "/marketplace",
+    title: "Marketplace",
+    subtitle: "Aluno + Loja Parceira",
+    desc: "Suplementos e artigos esportivos de lojas de Cabo Verde, em CVE.",
+    icon: ShoppingBag,
+    tone: "blue" as const,
   },
 ];
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <div className="grid-bg absolute inset-x-0 top-0 h-[60vh] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24">
         <header className="mb-16">
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_var(--neon)]" />
-            Fitness OS · Demo
+            Ecossistema Fitness · Cabo Verde
           </div>
           <h1 className="mt-4 text-5xl font-bold leading-[0.95] sm:text-7xl">
             PULSE<span className="neon-text">.</span>
             <br />
-            <span className="text-muted-foreground">Train. Track. Transact.</span>
+            <span className="text-muted-foreground">Treine. Acompanhe. Evolua.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground">
-            A connected ecosystem for trainers, athletes and partner stores.
-            Pick a surface below to explore the interface.
+            Uma plataforma única para donos de ginásio, treinadores, alunos e lojas parceiras.
+            Escolha um perfil abaixo para explorar a interface.
           </p>
         </header>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {screens.map(({ to, title, subtitle, desc, icon: Icon, tone }) => (
+          {perfis.map(({ to, title, subtitle, desc, icon: Icon, tone }) => (
             <Link
               key={to}
               to={to}
@@ -96,6 +104,11 @@ function Index() {
             </Link>
           ))}
         </div>
+
+        <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
+          <span>© PULSE · Mindelo · Praia · São Vicente</span>
+          <span>Versão demo · Todos os valores em <span className="neon-text">CVE</span></span>
+        </footer>
       </div>
     </div>
   );
