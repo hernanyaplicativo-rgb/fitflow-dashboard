@@ -7,15 +7,7 @@ export const Route = createFileRoute("/trainer")({
 });
 
 import { toast } from "sonner";
-import { useStore, type Exercise } from "../lib/store";
-
-const alunos = [
-  { id: "1", name: "Marina Sousa", goal: "Hipertrofia", avatar: "MS" },
-  { id: "2", name: "Diego Ferraz", goal: "Força", avatar: "DF" },
-  { id: "3", name: "Lucas Tavares", goal: "Condicionamento", avatar: "LT" },
-  { id: "4", name: "Ana Beatriz", goal: "Perda de gordura", avatar: "AB" },
-  { id: "5", name: "Pedro Henrique", goal: "Powerlifting", avatar: "PH" },
-];
+import { useStore, type Exercise, type Aluno } from "../lib/store";
 
 const bibliotecaExercicios = [
   "Supino reto", "Agachamento livre", "Levantamento terra", "Barra fixa", "Desenvolvimento militar",
@@ -26,10 +18,11 @@ const bibliotecaExercicios = [
 const modalidades = ["Musculação", "CrossFit", "Pilates", "Funcional", "HIIT", "Mobilidade"];
 
 function TrainerDashboard() {
-  const [alunoSelecionado, setAlunoSelecionado] = useState(alunos[0].id);
+  const { alunos, addAluno, setWorkout } = useStore();
+  const [activeTab, setActiveTab] = useState("Criador de Treinos");
+  const [alunoSelecionado, setAlunoSelecionado] = useState(alunos[0]?.id || "");
   const [modalidade, setModalidade] = useState("Musculação");
   const [nomeTreino, setNomeTreino] = useState("Hipertrofia — Membros Superiores");
-  const { setWorkout } = useStore();
   const [exercicios, setExercicios] = useState<Exercise[]>([
     { id: "e1", name: "Supino reto", sets: 4, reps: "8-10", load: "70 kg", rest: 90 },
     { id: "e2", name: "Remada curvada", sets: 4, reps: "8", load: "60 kg", rest: 90 },
@@ -49,7 +42,7 @@ function TrainerDashboard() {
     setExercicios((prev) => prev.filter((e) => e.id !== id));
   };
 
-  const aluno = alunos.find((a) => a.id === alunoSelecionado)!;
+  const aluno = alunos.find((a) => a.id === alunoSelecionado) || alunos[0];
 
   const handleSave = () => {
     setWorkout(exercicios);
@@ -76,15 +69,16 @@ function TrainerDashboard() {
           </div>
           <nav className="mt-10 space-y-1 text-sm">
             {[
-              { icon: Activity, label: "Criador de Treinos", active: true },
+              { icon: Activity, label: "Criador de Treinos" },
               { icon: Users, label: "Alunos" },
               { icon: Flame, label: "Programas" },
               { icon: Timer, label: "Sessões" },
             ].map((n) => (
               <button
                 key={n.label}
+                onClick={() => setActiveTab(n.label)}
                 className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 transition ${
-                  n.active
+                  activeTab === n.label
                     ? "bg-neon/10 text-neon"
                     : "text-muted-foreground hover:bg-surface hover:text-foreground"
                 }`}
@@ -96,20 +90,22 @@ function TrainerDashboard() {
         </aside>
 
         <main className="flex-1 p-6 lg:p-10">
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Criador de Treinos</div>
-              <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Monte a ficha de hoje</h1>
-            </div>
-            <button 
-              onClick={handleSave}
-              className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow"
-            >
-              <Save className="h-4 w-4" /> Guardar treino
-            </button>
-          </div>
+          {activeTab === "Criador de Treinos" ? (
+            <>
+              <div className="mb-8 flex items-center justify-between">
+                <div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Criador de Treinos</div>
+                  <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Monte a ficha de hoje</h1>
+                </div>
+                <button 
+                  onClick={handleSave}
+                  className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow"
+                >
+                  <Save className="h-4 w-4" /> Guardar treino
+                </button>
+              </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+              <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
             <section className="space-y-6">
               <div className="rounded-2xl border border-border bg-card p-6">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -257,8 +253,68 @@ function TrainerDashboard() {
                   Pré-visualizar como aluno →
                 </Link>
               </div>
-            </aside>
+              </aside>
+            </div>
+          </>
+        ) : activeTab === "Alunos" ? (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold">Gestão de Alunos</h1>
+              <button 
+                onClick={() => {
+                  const newAluno: Aluno = { id: Date.now().toString(), name: "Novo Aluno", goal: "Iniciante", avatar: "NA" };
+                  addAluno(newAluno);
+                  toast.success("Aluno adicionado!", { description: "Novo Aluno está agora disponível." });
+                }}
+                className="flex items-center gap-2 rounded-xl bg-neon px-4 py-2 text-sm font-semibold text-primary-foreground neon-glow"
+              >
+                <Plus className="h-4 w-4" /> Novo Aluno
+              </button>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {alunos.map(a => (
+                <div key={a.id} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition hover:border-neon/40">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-neon to-neon-blue text-sm font-bold text-primary-foreground">
+                    {a.avatar}
+                  </div>
+                  <div>
+                    <div className="font-semibold">{a.name}</div>
+                    <div className="text-xs text-muted-foreground">{a.goal}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        ) : activeTab === "Programas" ? (
+          <div className="space-y-6">
+            <h1 className="text-3xl font-bold">Programas de Treino</h1>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {["Hipertrofia 12 Semanas", "Seca Verão", "Força Máxima", "Iniciante Total"].map(prog => (
+                <div key={prog} className="rounded-2xl border border-border bg-card p-6 transition hover:border-neon-blue/40">
+                  <Flame className="h-6 w-6 text-neon-blue mb-3" />
+                  <h3 className="text-lg font-semibold">{prog}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">Programa pré-construído com várias semanas.</p>
+                  <button className="mt-4 rounded-lg bg-surface px-4 py-2 text-xs font-medium hover:bg-surface-2">Ver detalhes</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <h1 className="text-3xl font-bold">Sessões de Hoje</h1>
+            <div className="rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="border-b border-border p-4 text-sm font-medium">Próximas Sessões</div>
+              <ul className="divide-y divide-border">
+                {["09:00 - Marina Sousa", "11:30 - Lucas Tavares", "15:00 - Ana Beatriz"].map(sessao => (
+                  <li key={sessao} className="p-4 hover:bg-surface/50 flex items-center justify-between">
+                    <span>{sessao}</span>
+                    <button className="text-neon text-xs hover:underline">Iniciar Acompanhamento</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         </main>
       </div>
     </div>

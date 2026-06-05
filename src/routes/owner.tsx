@@ -4,6 +4,7 @@ import {
   Building2, ChevronLeft, Users, GraduationCap, Wallet, Crown,
   TrendingUp, ArrowUpRight, LogIn, Check, Activity, Calendar,
 } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/owner")({
   component: OwnerArea,
@@ -182,7 +183,10 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
                 </li>
               ))}
             </ul>
-            <button className="mt-6 w-full rounded-xl bg-neon py-2.5 text-sm font-semibold text-primary-foreground">
+            <button 
+              onClick={() => toast.success("Pedido de gestão enviado!", { description: "Em breve, a equipa PULSE entrará em contacto para alterar o seu plano." })}
+              className="mt-6 w-full rounded-xl bg-neon py-2.5 text-sm font-semibold text-primary-foreground"
+            >
               Gerir assinatura
             </button>
           </aside>

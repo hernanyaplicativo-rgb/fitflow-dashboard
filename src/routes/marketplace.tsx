@@ -4,6 +4,8 @@ import {
   ChevronLeft, DollarSign, Package, AlertTriangle, Edit3, MapPin, TrendingUp, Search,
   ShoppingBag, Store, MessageCircle, CreditCard, Star, Filter,
 } from "lucide-react";
+import { toast } from "sonner";
+import { useStore, type Produto } from "../lib/store";
 
 export const Route = createFileRoute("/marketplace")({
   component: Marketplace,
@@ -178,14 +180,10 @@ function ShopView() {
 
 /* ------------------ PARTNER PANEL ------------------ */
 
-const inventario = [
-  { id: 1, name: "Whey Protein Isolado 900g", price: 8900, stock: 42, img: "💪" },
-  { id: 2, name: "Creatina Monohidratada 300g", price: 4500, stock: 4, img: "⚡" },
-  { id: 3, name: "Pré-treino Neon Burst", price: 5200, stock: 18, img: "🔥" },
-  { id: 4, name: "BCAA em Pó 250g", price: 3800, stock: 0, img: "🧬" },
-  { id: 5, name: "Shaker PULSE 700ml", price: 950, stock: 120, img: "🥤" },
-  { id: 6, name: "Faixa de Resistência Kit", price: 3200, stock: 7, img: "🎯" },
-];
+// const inventario = [
+//   { id: 1, name: "Whey Protein Isolado 900g", price: 8900, stock: 42, img: "💪" },
+//   ...
+// ];
 
 const pedidos = [
   { id: "#10482", buyer: "Marina Sousa", city: "Mindelo, SV", status: "Enviado" },
@@ -196,6 +194,13 @@ const pedidos = [
 ];
 
 function PartnerView() {
+  const { inventario, addProduto } = useStore();
+  
+  const handleNovoProduto = () => {
+    addProduto({ id: Date.now(), name: "Novo Suplemento Teste", price: 2500, stock: 10, img: "📦" });
+    toast.success("Produto adicionado!", { description: "Novo produto disponível no inventário." });
+  };
+
   return (
     <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
       <div className="mb-8">
@@ -217,7 +222,10 @@ function PartnerView() {
               <h2 className="text-lg font-semibold">Inventário</h2>
               <p className="text-xs text-muted-foreground">{inventario.length} produtos</p>
             </div>
-            <button className="rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-primary-foreground neon-glow">
+            <button 
+              onClick={handleNovoProduto}
+              className="rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-primary-foreground neon-glow"
+            >
               + Novo produto
             </button>
           </header>
@@ -247,7 +255,10 @@ function PartnerView() {
                       <StockBadge stock={p.stock} />
                     </td>
                     <td className="px-5 py-3 text-right">
-                      <button className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground transition hover:border-neon hover:text-neon">
+                      <button 
+                        onClick={() => toast("A abrir editor de produto...")}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground transition hover:border-neon hover:text-neon"
+                      >
                         <Edit3 className="h-3 w-3" /> Editar
                       </button>
                     </td>
