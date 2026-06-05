@@ -14,6 +14,7 @@ import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
+import { Route as StudentEquipmentRouteImport } from './routes/student.equipment'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -40,11 +41,17 @@ const StudentNutritionistRoute = StudentNutritionistRouteImport.update({
   path: '/student/nutritionist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentEquipmentRoute = StudentEquipmentRouteImport.update({
+  id: '/student/equipment',
+  path: '/student/equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/partner'
     | '/trainer'
+    | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/partner'
     | '/trainer'
+    | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/partner'
     | '/trainer'
+    | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
   fileRoutesById: FileRoutesById
@@ -91,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PartnerRoute: typeof PartnerRoute
   TrainerRoute: typeof TrainerRoute
+  StudentEquipmentRoute: typeof StudentEquipmentRoute
   StudentNutritionistRoute: typeof StudentNutritionistRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
 }
@@ -132,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentNutritionistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student/equipment': {
+      id: '/student/equipment'
+      path: '/student/equipment'
+      fullPath: '/student/equipment'
+      preLoaderRoute: typeof StudentEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PartnerRoute: PartnerRoute,
   TrainerRoute: TrainerRoute,
+  StudentEquipmentRoute: StudentEquipmentRoute,
   StudentNutritionistRoute: StudentNutritionistRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
 }
