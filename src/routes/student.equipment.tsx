@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronLeft, Play, ChevronDown, QrCode, Shield, Target, Settings2 } from "lucide-react";
+import { toast } from "sonner";
+import { useStore } from "../lib/store";
 
 export const Route = createFileRoute("/student/equipment")({
   component: EquipmentDetail,
@@ -26,6 +28,21 @@ const seccoes = [
 
 function EquipmentDetail() {
   const [open, setOpen] = useState<string | null>("Ajuste do banco");
+  const { addExercise } = useStore();
+
+  const handleAdd = () => {
+    addExercise({
+      id: `eq-${Date.now()}`,
+      name: "Leg Press 45°",
+      sets: 3,
+      reps: "10-12",
+      load: "Média",
+      rest: 60,
+    });
+    toast.success("Adicionado ao teu treino!", {
+      description: "O exercício foi adicionado ao final da tua sessão atual.",
+    });
+  };
 
   return (
     <div className="mx-auto min-h-screen max-w-md bg-background text-foreground">
@@ -93,7 +110,10 @@ function EquipmentDetail() {
             })}
           </div>
 
-          <button className="mt-8 w-full rounded-xl bg-neon py-3.5 text-sm font-semibold text-primary-foreground neon-glow">
+          <button 
+            onClick={handleAdd}
+            className="mt-8 w-full rounded-xl bg-neon py-3.5 text-sm font-semibold text-primary-foreground neon-glow"
+          >
             Adicionar ao meu treino
           </button>
         </div>

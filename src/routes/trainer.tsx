@@ -6,14 +6,8 @@ export const Route = createFileRoute("/trainer")({
   component: TrainerDashboard,
 });
 
-type Exercise = {
-  id: string;
-  name: string;
-  sets: number;
-  reps: string;
-  load: string;
-  rest: string;
-};
+import { toast } from "sonner";
+import { useStore, type Exercise } from "../lib/store";
 
 const alunos = [
   { id: "1", name: "Marina Sousa", goal: "Hipertrofia", avatar: "MS" },
@@ -35,16 +29,17 @@ function TrainerDashboard() {
   const [alunoSelecionado, setAlunoSelecionado] = useState(alunos[0].id);
   const [modalidade, setModalidade] = useState("Musculação");
   const [nomeTreino, setNomeTreino] = useState("Hipertrofia — Membros Superiores");
+  const { setWorkout } = useStore();
   const [exercicios, setExercicios] = useState<Exercise[]>([
-    { id: "e1", name: "Supino reto", sets: 4, reps: "8-10", load: "70 kg", rest: "90s" },
-    { id: "e2", name: "Remada curvada", sets: 4, reps: "8", load: "60 kg", rest: "90s" },
-    { id: "e3", name: "Desenvolvimento militar", sets: 3, reps: "10", load: "40 kg", rest: "60s" },
+    { id: "e1", name: "Supino reto", sets: 4, reps: "8-10", load: "70 kg", rest: 90 },
+    { id: "e2", name: "Remada curvada", sets: 4, reps: "8", load: "60 kg", rest: 90 },
+    { id: "e3", name: "Desenvolvimento militar", sets: 3, reps: "10", load: "40 kg", rest: 60 },
   ]);
 
   const addExercise = () => {
     setExercicios((prev) => [
       ...prev,
-      { id: `e${Date.now()}`, name: "", sets: 3, reps: "10", load: "", rest: "60s" },
+      { id: `e${Date.now()}`, name: "", sets: 3, reps: "10", load: "", rest: 60 },
     ]);
   };
   const updateExercise = (id: string, patch: Partial<Exercise>) => {
@@ -55,6 +50,13 @@ function TrainerDashboard() {
   };
 
   const aluno = alunos.find((a) => a.id === alunoSelecionado)!;
+
+  const handleSave = () => {
+    setWorkout(exercicios);
+    toast.success("Treino guardado com sucesso!", {
+      description: `Sessão "${nomeTreino}" atribuída a ${aluno.name}.`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -99,7 +101,10 @@ function TrainerDashboard() {
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Criador de Treinos</div>
               <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Monte a ficha de hoje</h1>
             </div>
-            <button className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow">
+            <button 
+              onClick={handleSave}
+              className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow"
+            >
               <Save className="h-4 w-4" /> Guardar treino
             </button>
           </div>
@@ -204,10 +209,11 @@ function TrainerDashboard() {
                             className="w-full rounded-md border border-border bg-input px-2 py-1.5 text-sm outline-none focus:border-neon"
                           />
                         </MiniField>
-                        <MiniField label="Descanso">
+                        <MiniField label="Descanso (s)">
                           <input
+                            type="number"
                             value={ex.rest}
-                            onChange={(e) => updateExercise(ex.id, { rest: e.target.value })}
+                            onChange={(e) => updateExercise(ex.id, { rest: Number(e.target.value) })}
                             className="w-full rounded-md border border-border bg-input px-2 py-1.5 text-sm outline-none focus:border-neon"
                           />
                         </MiniField>

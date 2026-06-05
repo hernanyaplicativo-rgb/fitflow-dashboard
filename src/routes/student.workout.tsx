@@ -2,29 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronLeft, Pause, Play, RotateCcw, Timer, Flame } from "lucide-react";
 
+import { useStore, type Exercise } from "../lib/store";
+
 export const Route = createFileRoute("/student/workout")({
   component: StudentWorkout,
 });
 
-type Exercise = {
-  id: string;
-  name: string;
-  sets: number;
-  reps: string;
-  load: string;
-  rest: number;
-};
-
-const treino: Exercise[] = [
-  { id: "1", name: "Supino reto", sets: 4, reps: "8-10", load: "70 kg", rest: 90 },
-  { id: "2", name: "Remada curvada", sets: 4, reps: "8", load: "60 kg", rest: 90 },
-  { id: "3", name: "Desenvolvimento militar", sets: 3, reps: "10", load: "40 kg", rest: 60 },
-  { id: "4", name: "Puxada alta", sets: 3, reps: "12", load: "50 kg", rest: 60 },
-  { id: "5", name: "Tríceps no pulley", sets: 3, reps: "15", load: "30 kg", rest: 45 },
-  { id: "6", name: "Rosca direta", sets: 3, reps: "12", load: "14 kg", rest: 45 },
-];
-
 function StudentWorkout() {
+  const treino = useStore((state) => state.workout);
   const [done, setDone] = useState<Record<string, number>>({});
   const [timer, setTimer] = useState<{ exId: string; remaining: number; running: boolean } | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);

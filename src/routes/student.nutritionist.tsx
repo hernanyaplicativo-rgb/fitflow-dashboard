@@ -32,12 +32,21 @@ function NutritionistChat() {
   const send = () => {
     if (!input.trim()) return;
     const userMsg: Msg = { id: `u${Date.now()}`, role: "user", content: input };
-    const aiMsg: Msg = {
-      id: `a${Date.now()}`,
-      role: "ai",
-      content:
-        "Boa pergunta! Suplementar com **creatina monohidratada (5g/dia)** ajuda na performance. Para o pós-treino, mantém whey + uma fruta (banana ou manga) até 1h depois do treino.",
-    };
+    
+    let answer = "Posso ajudar-te com mais alguma dúvida sobre a tua dieta, suplementação ou hidratação?";
+    const text = input.toLowerCase();
+    if (text.includes("creatina")) {
+      answer = "Boa pergunta! Suplementar com **creatina monohidratada (5g/dia)** ajuda muito na performance e na força explosiva. Pode ser a qualquer hora, mas recomendo junto com uma refeição.";
+    } else if (text.includes("água") || text.includes("agua") || text.includes("hidrat")) {
+      answer = "A tua meta atual é de **3.2 L de água por dia**. Tenta beber pelo menos 1 litro durante o treino!";
+    } else if (text.includes("fome")) {
+      answer = "Se sentires fome entre as refeições, podes adicionar uma colher de pasta de amendoim ou uma peça de fruta extra. Não compromete o teu ganho de massa!";
+    } else if (text.includes("obrigado") || text.includes("valeu")) {
+      answer = "De nada, Marina! Estou sempre aqui para otimizar os teus resultados. Foco no treino! 🔥";
+    }
+
+    const aiMsg: Msg = { id: `a${Date.now()}`, role: "ai", content: answer };
+    
     setMessages((m) => [...m, userMsg, aiMsg]);
     setInput("");
   };

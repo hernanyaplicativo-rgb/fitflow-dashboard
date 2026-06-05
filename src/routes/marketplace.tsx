@@ -62,20 +62,27 @@ function TabButton({ active, onClick, children }: { active: boolean; onClick: ()
 /* ------------------ SHOP (student-facing) ------------------ */
 
 const produtos = [
-  { id: 1, nome: "Creatina Monohidratada 300g", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 4500, rating: 4.8, img: "⚡", tag: "Mais vendido" },
-  { id: 2, nome: "Whey Protein Isolado 900g", loja: "Atlantic Nutrition", cidade: "Praia", preco: 8900, rating: 4.9, img: "💪", tag: "Novo" },
-  { id: 3, nome: "Pré-treino Neon Burst 300g", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 5200, rating: 4.6, img: "🔥" },
-  { id: 4, nome: "Luvas de Treino Premium", loja: "Sal Sports Lab", cidade: "Sal", preco: 1800, rating: 4.5, img: "🥊" },
-  { id: 5, nome: "Shaker PULSE 700ml", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "🥤" },
-  { id: 6, nome: "Faixa de Resistência (Kit 5)", loja: "Sal Sports Lab", cidade: "Sal", preco: 3200, rating: 4.4, img: "🎯" },
-  { id: 7, nome: "BCAA em Pó 250g", loja: "Atlantic Nutrition", cidade: "Praia", preco: 3800, rating: 4.3, img: "🧬" },
-  { id: 8, nome: "Cinta Lombar Profissional", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 2400, rating: 4.6, img: "🛡️" },
+  { id: 1, nome: "Creatina Monohidratada 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 4500, rating: 4.8, img: "⚡", tag: "Mais vendido" },
+  { id: 2, nome: "Whey Protein Isolado 900g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 8900, rating: 4.9, img: "💪", tag: "Novo" },
+  { id: 3, nome: "Pré-treino Neon Burst 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 5200, rating: 4.6, img: "🔥" },
+  { id: 4, nome: "Luvas de Treino Premium", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 1800, rating: 4.5, img: "🥊" },
+  { id: 5, nome: "Shaker PULSE 700ml", categoria: "Acessórios", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "🥤" },
+  { id: 6, nome: "Faixa de Resistência (Kit 5)", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 3200, rating: 4.4, img: "🎯" },
+  { id: 7, nome: "BCAA em Pó 250g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 3800, rating: 4.3, img: "🧬" },
+  { id: 8, nome: "Cinta Lombar Profissional", categoria: "Acessórios", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 2400, rating: 4.6, img: "🛡️" },
 ];
 
 const categorias = ["Tudo", "Suplementos", "Acessórios", "Equipamento", "Roupa"];
 
 function ShopView() {
   const [cat, setCat] = useState("Tudo");
+  const [search, setSearch] = useState("");
+
+  const produtosFiltrados = produtos.filter((p) => {
+    const matchCat = cat === "Tudo" || p.categoria === cat;
+    const matchSearch = p.nome.toLowerCase().includes(search.toLowerCase()) || p.loja.toLowerCase().includes(search.toLowerCase());
+    return matchCat && matchSearch;
+  });
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
@@ -92,6 +99,8 @@ function ShopView() {
         <div className="relative flex-1 min-w-[240px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Procurar produtos, lojas..."
             className="w-full rounded-xl border border-border bg-card py-2.5 pl-10 pr-3 text-sm outline-none focus:border-neon"
           />
@@ -118,8 +127,13 @@ function ShopView() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {produtos.map((p) => (
-          <article key={p.id} className="group flex flex-col rounded-2xl border border-border bg-card p-4 transition hover:border-neon/40">
+        {produtosFiltrados.length === 0 ? (
+          <div className="col-span-full py-12 text-center text-muted-foreground">
+            Nenhum produto encontrado para "{search}".
+          </div>
+        ) : (
+          produtosFiltrados.map((p) => (
+            <article key={p.id} className="group flex flex-col rounded-2xl border border-border bg-card p-4 transition hover:border-neon/40">
             <div className="relative flex aspect-square items-center justify-center rounded-xl bg-gradient-to-br from-surface to-surface-2 text-6xl">
               {p.img}
               {p.tag && (
@@ -146,7 +160,7 @@ function ShopView() {
               </button>
             </div>
           </article>
-        ))}
+        )))}
       </div>
 
       <div className="mt-10 rounded-2xl border border-neon/30 bg-card p-6 neon-glow">
