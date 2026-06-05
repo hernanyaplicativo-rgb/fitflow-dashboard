@@ -13,6 +13,7 @@ import { Route as TrainerRouteImport } from './routes/trainer'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
+import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -34,17 +35,24 @@ const StudentWorkoutRoute = StudentWorkoutRouteImport.update({
   path: '/student/workout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentNutritionistRoute = StudentNutritionistRouteImport.update({
+  id: '/student/nutritionist',
+  path: '/student/nutritionist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,38 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
+  '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/partner' | '/trainer' | '/student/workout'
+  fullPaths:
+    | '/'
+    | '/partner'
+    | '/trainer'
+    | '/student/nutritionist'
+    | '/student/workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/partner' | '/trainer' | '/student/workout'
-  id: '__root__' | '/' | '/partner' | '/trainer' | '/student/workout'
+  to:
+    | '/'
+    | '/partner'
+    | '/trainer'
+    | '/student/nutritionist'
+    | '/student/workout'
+  id:
+    | '__root__'
+    | '/'
+    | '/partner'
+    | '/trainer'
+    | '/student/nutritionist'
+    | '/student/workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PartnerRoute: typeof PartnerRoute
   TrainerRoute: typeof TrainerRoute
+  StudentNutritionistRoute: typeof StudentNutritionistRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
 }
 
@@ -99,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentWorkoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student/nutritionist': {
+      id: '/student/nutritionist'
+      path: '/student/nutritionist'
+      fullPath: '/student/nutritionist'
+      preLoaderRoute: typeof StudentNutritionistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PartnerRoute: PartnerRoute,
   TrainerRoute: TrainerRoute,
+  StudentNutritionistRoute: StudentNutritionistRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
 }
 export const routeTree = rootRouteImport
