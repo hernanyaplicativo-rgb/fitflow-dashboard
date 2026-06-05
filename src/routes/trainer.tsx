@@ -15,67 +15,69 @@ type Exercise = {
   rest: string;
 };
 
-const athletes = [
-  { id: "1", name: "Marina Souza", goal: "Hypertrophy", avatar: "MS" },
-  { id: "2", name: "Diego Ferraz", goal: "Strength", avatar: "DF" },
-  { id: "3", name: "Lucas Tavares", goal: "Conditioning", avatar: "LT" },
-  { id: "4", name: "Ana Beatriz", goal: "Fat loss", avatar: "AB" },
+const alunos = [
+  { id: "1", name: "Marina Sousa", goal: "Hipertrofia", avatar: "MS" },
+  { id: "2", name: "Diego Ferraz", goal: "Força", avatar: "DF" },
+  { id: "3", name: "Lucas Tavares", goal: "Condicionamento", avatar: "LT" },
+  { id: "4", name: "Ana Beatriz", goal: "Perda de gordura", avatar: "AB" },
   { id: "5", name: "Pedro Henrique", goal: "Powerlifting", avatar: "PH" },
 ];
 
-const exerciseLibrary = [
-  "Bench Press", "Back Squat", "Deadlift", "Pull-up", "Overhead Press",
-  "Barbell Row", "Leg Press", "Dumbbell Curl", "Tricep Dip", "Box Jump",
+const bibliotecaExercicios = [
+  "Supino reto", "Agachamento livre", "Levantamento terra", "Barra fixa", "Desenvolvimento militar",
+  "Remada curvada", "Leg Press 45°", "Rosca direta", "Tríceps no pulley", "Box Jump",
+  "Burpees", "Kettlebell Swing", "Prancha abdominal",
 ];
 
+const modalidades = ["Musculação", "CrossFit", "Pilates", "Funcional", "HIIT", "Mobilidade"];
+
 function TrainerDashboard() {
-  const [selectedAthlete, setSelectedAthlete] = useState(athletes[0].id);
-  const [workoutType, setWorkoutType] = useState("Musculação");
-  const [workoutName, setWorkoutName] = useState("Hypertrophy — Upper Body");
-  const [exercises, setExercises] = useState<Exercise[]>([
-    { id: "e1", name: "Bench Press", sets: 4, reps: "8-10", load: "70 kg", rest: "90s" },
-    { id: "e2", name: "Barbell Row", sets: 4, reps: "8", load: "60 kg", rest: "90s" },
-    { id: "e3", name: "Overhead Press", sets: 3, reps: "10", load: "40 kg", rest: "60s" },
+  const [alunoSelecionado, setAlunoSelecionado] = useState(alunos[0].id);
+  const [modalidade, setModalidade] = useState("Musculação");
+  const [nomeTreino, setNomeTreino] = useState("Hipertrofia — Membros Superiores");
+  const [exercicios, setExercicios] = useState<Exercise[]>([
+    { id: "e1", name: "Supino reto", sets: 4, reps: "8-10", load: "70 kg", rest: "90s" },
+    { id: "e2", name: "Remada curvada", sets: 4, reps: "8", load: "60 kg", rest: "90s" },
+    { id: "e3", name: "Desenvolvimento militar", sets: 3, reps: "10", load: "40 kg", rest: "60s" },
   ]);
 
   const addExercise = () => {
-    setExercises((prev) => [
+    setExercicios((prev) => [
       ...prev,
       { id: `e${Date.now()}`, name: "", sets: 3, reps: "10", load: "", rest: "60s" },
     ]);
   };
   const updateExercise = (id: string, patch: Partial<Exercise>) => {
-    setExercises((prev) => prev.map((e) => (e.id === id ? { ...e, ...patch } : e)));
+    setExercicios((prev) => prev.map((e) => (e.id === id ? { ...e, ...patch } : e)));
   };
   const removeExercise = (id: string) => {
-    setExercises((prev) => prev.filter((e) => e.id !== id));
+    setExercicios((prev) => prev.filter((e) => e.id !== id));
   };
 
-  const athlete = athletes.find((a) => a.id === selectedAthlete)!;
+  const aluno = alunos.find((a) => a.id === alunoSelecionado)!;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="flex">
-        {/* Sidebar */}
         <aside className="hidden w-64 shrink-0 border-r border-border bg-surface/40 p-6 lg:block">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-            <ChevronLeft className="h-4 w-4" /> Back
+            <ChevronLeft className="h-4 w-4" /> Voltar
           </Link>
           <div className="mt-6 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-neon text-primary-foreground">
               <Dumbbell className="h-4 w-4" />
             </div>
             <div>
-              <div className="text-sm font-semibold">PULSE Coach</div>
-              <div className="text-xs text-muted-foreground">Trainer console</div>
+              <div className="text-sm font-semibold">PULSE Treinador</div>
+              <div className="text-xs text-muted-foreground">Painel do professor</div>
             </div>
           </div>
           <nav className="mt-10 space-y-1 text-sm">
             {[
-              { icon: Activity, label: "Workout Builder", active: true },
-              { icon: Users, label: "Athletes" },
-              { icon: Flame, label: "Programs" },
-              { icon: Timer, label: "Sessions" },
+              { icon: Activity, label: "Criador de Treinos", active: true },
+              { icon: Users, label: "Alunos" },
+              { icon: Flame, label: "Programas" },
+              { icon: Timer, label: "Sessões" },
             ].map((n) => (
               <button
                 key={n.label}
@@ -94,46 +96,45 @@ function TrainerDashboard() {
         <main className="flex-1 p-6 lg:p-10">
           <div className="mb-8 flex items-center justify-between">
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Workout Builder</div>
-              <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Design today's session</h1>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Criador de Treinos</div>
+              <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Monte a ficha de hoje</h1>
             </div>
             <button className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow">
-              <Save className="h-4 w-4" /> Save workout
+              <Save className="h-4 w-4" /> Guardar treino
             </button>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-            {/* Builder */}
             <section className="space-y-6">
               <div className="rounded-2xl border border-border bg-card p-6">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Athlete">
+                  <Field label="Aluno">
                     <select
-                      value={selectedAthlete}
-                      onChange={(e) => setSelectedAthlete(e.target.value)}
+                      value={alunoSelecionado}
+                      onChange={(e) => setAlunoSelecionado(e.target.value)}
                       className="w-full rounded-lg border border-border bg-input px-3 py-2.5 text-sm outline-none focus:border-neon"
                     >
-                      {athletes.map((a) => (
+                      {alunos.map((a) => (
                         <option key={a.id} value={a.id}>{a.name}</option>
                       ))}
                     </select>
                   </Field>
-                  <Field label="Workout type">
+                  <Field label="Modalidade">
                     <select
-                      value={workoutType}
-                      onChange={(e) => setWorkoutType(e.target.value)}
+                      value={modalidade}
+                      onChange={(e) => setModalidade(e.target.value)}
                       className="w-full rounded-lg border border-border bg-input px-3 py-2.5 text-sm outline-none focus:border-neon"
                     >
-                      {["Musculação", "CrossFit", "Funcional", "HIIT", "Mobilidade", "Powerlifting"].map((t) => (
+                      {modalidades.map((t) => (
                         <option key={t}>{t}</option>
                       ))}
                     </select>
                   </Field>
                   <div className="sm:col-span-2">
-                    <Field label="Workout name">
+                    <Field label="Nome do treino">
                       <input
-                        value={workoutName}
-                        onChange={(e) => setWorkoutName(e.target.value)}
+                        value={nomeTreino}
+                        onChange={(e) => setNomeTreino(e.target.value)}
                         className="w-full rounded-lg border border-border bg-input px-3 py-2.5 text-sm outline-none focus:border-neon"
                       />
                     </Field>
@@ -143,17 +144,17 @@ function TrainerDashboard() {
 
               <div className="rounded-2xl border border-border bg-card p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold">Exercises <span className="text-muted-foreground">· {exercises.length}</span></h2>
+                  <h2 className="text-lg font-semibold">Exercícios <span className="text-muted-foreground">· {exercicios.length}</span></h2>
                   <button
                     onClick={addExercise}
                     className="flex items-center gap-2 rounded-lg border border-neon/40 bg-neon/10 px-3 py-1.5 text-sm font-medium text-neon transition hover:bg-neon/20"
                   >
-                    <Plus className="h-4 w-4" /> Add exercise
+                    <Plus className="h-4 w-4" /> Adicionar exercício
                   </button>
                 </div>
 
                 <div className="space-y-3">
-                  {exercises.map((ex, i) => (
+                  {exercicios.map((ex, i) => (
                     <div key={ex.id} className="group rounded-xl border border-border bg-surface/50 p-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neon-blue/15 text-xs font-bold text-neon-blue">
@@ -165,11 +166,11 @@ function TrainerDashboard() {
                             list={`lib-${ex.id}`}
                             value={ex.name}
                             onChange={(e) => updateExercise(ex.id, { name: e.target.value })}
-                            placeholder="Search exercise..."
+                            placeholder="Pesquisar exercício..."
                             className="w-full rounded-lg border border-border bg-input py-2 pl-9 pr-3 text-sm outline-none focus:border-neon"
                           />
                           <datalist id={`lib-${ex.id}`}>
-                            {exerciseLibrary.map((n) => <option key={n} value={n} />)}
+                            {bibliotecaExercicios.map((n) => <option key={n} value={n} />)}
                           </datalist>
                         </div>
                         <button
@@ -180,7 +181,7 @@ function TrainerDashboard() {
                         </button>
                       </div>
                       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                        <MiniField label="Sets">
+                        <MiniField label="Séries">
                           <input
                             type="number"
                             value={ex.sets}
@@ -188,14 +189,14 @@ function TrainerDashboard() {
                             className="w-full rounded-md border border-border bg-input px-2 py-1.5 text-sm outline-none focus:border-neon"
                           />
                         </MiniField>
-                        <MiniField label="Reps">
+                        <MiniField label="Repetições">
                           <input
                             value={ex.reps}
                             onChange={(e) => updateExercise(ex.id, { reps: e.target.value })}
                             className="w-full rounded-md border border-border bg-input px-2 py-1.5 text-sm outline-none focus:border-neon"
                           />
                         </MiniField>
-                        <MiniField label="Load">
+                        <MiniField label="Carga">
                           <input
                             value={ex.load}
                             onChange={(e) => updateExercise(ex.id, { load: e.target.value })}
@@ -203,7 +204,7 @@ function TrainerDashboard() {
                             className="w-full rounded-md border border-border bg-input px-2 py-1.5 text-sm outline-none focus:border-neon"
                           />
                         </MiniField>
-                        <MiniField label="Rest">
+                        <MiniField label="Descanso">
                           <input
                             value={ex.rest}
                             onChange={(e) => updateExercise(ex.id, { rest: e.target.value })}
@@ -217,38 +218,37 @@ function TrainerDashboard() {
               </div>
             </section>
 
-            {/* Athlete preview */}
             <aside className="space-y-6">
               <div className="rounded-2xl border border-border bg-card p-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-neon to-neon-blue text-sm font-bold text-primary-foreground">
-                    {athlete.avatar}
+                    {aluno.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold">{athlete.name}</div>
-                    <div className="text-xs text-muted-foreground">Goal · {athlete.goal}</div>
+                    <div className="font-semibold">{aluno.name}</div>
+                    <div className="text-xs text-muted-foreground">Objetivo · {aluno.goal}</div>
                   </div>
                 </div>
                 <div className="mt-5 grid grid-cols-3 gap-2 text-center">
-                  <Stat label="Sessions" value="24" />
-                  <Stat label="Adherence" value="92%" />
-                  <Stat label="PRs" value="7" />
+                  <Stat label="Sessões" value="24" />
+                  <Stat label="Adesão" value="92%" />
+                  <Stat label="Recordes" value="7" />
                 </div>
               </div>
 
               <div className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold">Session summary</h3>
+                <h3 className="text-sm font-semibold">Resumo da sessão</h3>
                 <ul className="mt-4 space-y-2 text-sm">
-                  <Row k="Type" v={workoutType} />
-                  <Row k="Exercises" v={String(exercises.length)} />
-                  <Row k="Total sets" v={String(exercises.reduce((s, e) => s + e.sets, 0))} />
-                  <Row k="Est. duration" v={`${Math.max(20, exercises.length * 10)} min`} />
+                  <Row k="Modalidade" v={modalidade} />
+                  <Row k="Exercícios" v={String(exercicios.length)} />
+                  <Row k="Séries totais" v={String(exercicios.reduce((s, e) => s + e.sets, 0))} />
+                  <Row k="Duração estimada" v={`${Math.max(20, exercicios.length * 10)} min`} />
                 </ul>
                 <Link
                   to="/student/workout"
                   className="mt-5 flex items-center justify-center gap-2 rounded-lg border border-neon-blue/40 bg-neon-blue/10 px-3 py-2 text-sm font-medium text-neon-blue transition hover:bg-neon-blue/20"
                 >
-                  Preview as athlete →
+                  Pré-visualizar como aluno →
                 </Link>
               </div>
             </aside>
