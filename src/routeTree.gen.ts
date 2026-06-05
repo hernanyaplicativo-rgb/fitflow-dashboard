@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrainerRouteImport } from './routes/trainer'
+import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
   path: '/trainer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerRoute = PartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const StudentWorkoutRoute = StudentWorkoutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/trainer' | '/student/workout'
+  fullPaths: '/' | '/partner' | '/trainer' | '/student/workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/trainer' | '/student/workout'
-  id: '__root__' | '/' | '/trainer' | '/student/workout'
+  to: '/' | '/partner' | '/trainer' | '/student/workout'
+  id: '__root__' | '/' | '/partner' | '/trainer' | '/student/workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PartnerRoute: typeof PartnerRoute
   TrainerRoute: typeof TrainerRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/trainer'
       fullPath: '/trainer'
       preLoaderRoute: typeof TrainerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner': {
+      id: '/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof PartnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PartnerRoute: PartnerRoute,
   TrainerRoute: TrainerRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
 }
