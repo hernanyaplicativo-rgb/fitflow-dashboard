@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrainerRouteImport } from './routes/trainer'
 import { Route as PartnerRouteImport } from './routes/partner'
+import { Route as OwnerRouteImport } from './routes/owner'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
@@ -24,6 +25,11 @@ const TrainerRoute = TrainerRouteImport.update({
 const PartnerRoute = PartnerRouteImport.update({
   id: '/partner',
   path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OwnerRoute = OwnerRouteImport.update({
+  id: '/owner',
+  path: '/owner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,6 +55,7 @@ const StudentEquipmentRoute = StudentEquipmentRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/equipment': typeof StudentEquipmentRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/equipment': typeof StudentEquipmentRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRoute
   '/partner': typeof PartnerRoute
   '/trainer': typeof TrainerRoute
   '/student/equipment': typeof StudentEquipmentRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/owner'
     | '/partner'
     | '/trainer'
     | '/student/equipment'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/owner'
     | '/partner'
     | '/trainer'
     | '/student/equipment'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/owner'
     | '/partner'
     | '/trainer'
     | '/student/equipment'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OwnerRoute: typeof OwnerRoute
   PartnerRoute: typeof PartnerRoute
   TrainerRoute: typeof TrainerRoute
   StudentEquipmentRoute: typeof StudentEquipmentRoute
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/partner'
       fullPath: '/partner'
       preLoaderRoute: typeof PartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/owner': {
+      id: '/owner'
+      path: '/owner'
+      fullPath: '/owner'
+      preLoaderRoute: typeof OwnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OwnerRoute: OwnerRoute,
   PartnerRoute: PartnerRoute,
   TrainerRoute: TrainerRoute,
   StudentEquipmentRoute: StudentEquipmentRoute,
@@ -166,3 +187,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
