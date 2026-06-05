@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrainerRouteImport } from './routes/trainer'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentWorkoutRoute = StudentWorkoutRouteImport.update({
+  id: '/student/workout',
+  path: '/student/workout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/trainer': typeof TrainerRoute
+  '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/trainer': typeof TrainerRoute
+  '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/trainer': typeof TrainerRoute
+  '/student/workout': typeof StudentWorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/trainer'
+  fullPaths: '/' | '/trainer' | '/student/workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/trainer'
-  id: '__root__' | '/' | '/trainer'
+  to: '/' | '/trainer' | '/student/workout'
+  id: '__root__' | '/' | '/trainer' | '/student/workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TrainerRoute: typeof TrainerRoute
+  StudentWorkoutRoute: typeof StudentWorkoutRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student/workout': {
+      id: '/student/workout'
+      path: '/student/workout'
+      fullPath: '/student/workout'
+      preLoaderRoute: typeof StudentWorkoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TrainerRoute: TrainerRoute,
+  StudentWorkoutRoute: StudentWorkoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
