@@ -48,7 +48,8 @@ function EquipmentDetail() {
     <div className="mx-auto min-h-screen max-w-md bg-background text-foreground">
       <div className="relative">
         <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-surface to-background">
-          <div className="grid-bg absolute inset-0 opacity-40" />
+          <img src="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=900&q=80" alt="Leg Press" className="absolute inset-0 h-full w-full object-cover opacity-80" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div className="absolute inset-0 flex items-center justify-center">
             <button className="group relative flex h-20 w-20 items-center justify-center rounded-full bg-neon text-primary-foreground transition hover:scale-105 neon-glow">
               <Play className="h-8 w-8 fill-current" />
