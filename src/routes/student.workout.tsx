@@ -52,13 +52,17 @@ function StudentWorkout() {
           </div>
         </div>
 
-        <header className="mt-6">
-          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Treino de Hoje</div>
-          <h1 className="mt-2 text-3xl font-bold leading-tight">
-            Hipertrofia
-            <br />
-            <span className="neon-text">Membros Superiores</span>
-          </h1>
+        <header className="relative mt-6 overflow-hidden rounded-2xl border border-border">
+          <img src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=900&q=80" alt="Treino" className="h-44 w-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-5">
+            <div className="text-xs uppercase tracking-[0.2em] text-neon">Treino de Hoje</div>
+            <h1 className="mt-2 text-3xl font-bold leading-tight">
+              Hipertrofia
+              <br />
+              <span className="neon-text">Membros Superiores</span>
+            </h1>
+          </div>
         </header>
 
         <div className="mt-6 rounded-2xl border border-border bg-card p-4">
