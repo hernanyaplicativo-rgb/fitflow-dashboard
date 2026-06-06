@@ -108,13 +108,6 @@ function TrainerDashboard() {
                   <Save className="h-4 w-4" /> Guardar treino
                 </button>
               </div>
-                <button 
-                  onClick={handleSave}
-                  className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow"
-                >
-                  <Save className="h-4 w-4" /> Guardar treino
-                </button>
-              </div>
 
               <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
             <section className="space-y-6">
