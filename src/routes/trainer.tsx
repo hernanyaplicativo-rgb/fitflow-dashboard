@@ -92,11 +92,15 @@ function TrainerDashboard() {
         <main className="flex-1 p-6 lg:p-10">
           {activeTab === "Criador de Treinos" ? (
             <>
-              <div className="mb-8 flex items-center justify-between">
-                <div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Criador de Treinos</div>
+              <div className="relative mb-8 overflow-hidden rounded-2xl border border-border">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1600&q=80" alt="Treinador" className="h-44 w-full object-cover sm:h-56" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                  <div className="text-xs uppercase tracking-[0.2em] text-neon">Criador de Treinos</div>
                   <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Monte a ficha de hoje</h1>
                 </div>
+              </div>
+              <div className="mb-8 flex items-center justify-end">
                 <button 
                   onClick={handleSave}
                   className="flex items-center gap-2 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110 neon-glow"

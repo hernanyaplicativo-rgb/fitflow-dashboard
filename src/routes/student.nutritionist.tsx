@@ -77,9 +77,7 @@ function NutritionistChat() {
         <div className="mt-4 rounded-2xl border border-neon/30 bg-card p-3 neon-glow">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-neon to-neon-blue text-xs font-bold text-primary-foreground">
-                MS
-              </div>
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Marina" className="h-10 w-10 rounded-full object-cover ring-2 ring-neon/40" loading="lazy" />
               <div>
                 <div className="text-sm font-semibold">Marina Sousa</div>
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Ectomorfa · Ganho de massa</div>

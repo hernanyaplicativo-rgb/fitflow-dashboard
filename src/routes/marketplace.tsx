@@ -64,14 +64,14 @@ function TabButton({ active, onClick, children }: { active: boolean; onClick: ()
 /* ------------------ SHOP (student-facing) ------------------ */
 
 const produtos = [
-  { id: 1, nome: "Creatina Monohidratada 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 4500, rating: 4.8, img: "⚡", tag: "Mais vendido" },
-  { id: 2, nome: "Whey Protein Isolado 900g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 8900, rating: 4.9, img: "💪", tag: "Novo" },
-  { id: 3, nome: "Pré-treino Neon Burst 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 5200, rating: 4.6, img: "🔥" },
-  { id: 4, nome: "Luvas de Treino Premium", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 1800, rating: 4.5, img: "🥊" },
-  { id: 5, nome: "Shaker PULSE 700ml", categoria: "Acessórios", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "🥤" },
-  { id: 6, nome: "Faixa de Resistência (Kit 5)", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 3200, rating: 4.4, img: "🎯" },
-  { id: 7, nome: "BCAA em Pó 250g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 3800, rating: 4.3, img: "🧬" },
-  { id: 8, nome: "Cinta Lombar Profissional", categoria: "Acessórios", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 2400, rating: 4.6, img: "🛡️" },
+  { id: 1, nome: "Creatina Monohidratada 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 4500, rating: 4.8, img: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=600&q=80", tag: "Mais vendido" },
+  { id: 2, nome: "Whey Protein Isolado 900g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 8900, rating: 4.9, img: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80", tag: "Novo" },
+  { id: 3, nome: "Pré-treino Neon Burst 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 5200, rating: 4.6, img: "https://images.unsplash.com/photo-1622484212850-eb596d769edc?auto=format&fit=crop&w=600&q=80" },
+  { id: 4, nome: "Luvas de Treino Premium", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 1800, rating: 4.5, img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" },
+  { id: 5, nome: "Shaker PULSE 700ml", categoria: "Acessórios", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "https://images.unsplash.com/photo-1614102073832-030967418971?auto=format&fit=crop&w=600&q=80" },
+  { id: 6, nome: "Faixa de Resistência (Kit 5)", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 3200, rating: 4.4, img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=600&q=80" },
+  { id: 7, nome: "BCAA em Pó 250g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 3800, rating: 4.3, img: "https://images.unsplash.com/photo-1610725664285-7c57e6eeac3f?auto=format&fit=crop&w=600&q=80" },
+  { id: 8, nome: "Cinta Lombar Profissional", categoria: "Acessórios", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 2400, rating: 4.6, img: "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=600&q=80" },
 ];
 
 const categorias = ["Tudo", "Suplementos", "Acessórios", "Equipamento", "Roupa"];
@@ -88,13 +88,17 @@ function ShopView() {
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold sm:text-4xl">
-          Lojas locais. <span className="neon-text">Entrega rápida.</span>
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Suplementos e artigos esportivos de parceiros em Mindelo, Praia e Sal.
-        </p>
+      <div className="relative mb-6 overflow-hidden rounded-2xl border border-border">
+        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=80" alt="Marketplace" className="h-44 w-full object-cover sm:h-56" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
+          <h1 className="text-3xl font-bold sm:text-4xl">
+            Lojas locais. <span className="neon-text">Entrega rápida.</span>
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Suplementos e artigos esportivos de parceiros em Mindelo, Praia e Sal.
+          </p>
+        </div>
       </div>
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
@@ -136,8 +140,8 @@ function ShopView() {
         ) : (
           produtosFiltrados.map((p) => (
             <article key={p.id} className="group flex flex-col rounded-2xl border border-border bg-card p-4 transition hover:border-neon/40">
-            <div className="relative flex aspect-square items-center justify-center rounded-xl bg-gradient-to-br from-surface to-surface-2 text-6xl">
-              {p.img}
+            <div className="relative aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-surface to-surface-2">
+              <img src={p.img} alt={p.nome} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               {p.tag && (
                 <span className="absolute left-2 top-2 rounded-full bg-neon px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
                   {p.tag}
