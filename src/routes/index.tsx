@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight } from "lucide-react";
 
@@ -56,7 +57,37 @@ const perfis = [
   },
 ];
 
+const slides = [
+  {
+    category: "Treinar em Casa",
+    title: "Desafio Cardio HIIT Express",
+    tag: "Sem Equipamento • 20 min",
+    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    category: "Suplementos",
+    title: "Creatina Monohidratada 300g",
+    tag: "Melhor preço em CVE",
+    image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    category: "Treinar em Casa",
+    title: "Fortalecimento de Core e Pernas",
+    tag: "Nível Intermediário",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+  },
+];
+
 function Index() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
       <div className="grid-bg absolute inset-x-0 top-0 h-[60vh] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
@@ -76,6 +107,53 @@ function Index() {
             Escolha um perfil abaixo para explorar a interface.
           </p>
         </header>
+
+        {/* Carrossel de Destaque */}
+        <section className="mb-16">
+          <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-zinc-800/80 bg-black shadow-2xl">
+            <div className="relative aspect-[16/9] sm:aspect-[21/9]">
+              {slides.map((slide, i) => (
+                <div
+                  key={i}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    i === activeSlide ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-6 sm:p-10">
+                    <div className="mb-2 inline-flex items-center rounded-full border border-neon/30 bg-neon/10 px-3 py-1 text-xs font-mono uppercase tracking-wider text-neon neon-glow">
+                      {slide.category}
+                    </div>
+                    <h2 className="text-2xl font-bold leading-tight text-white sm:text-4xl">
+                      {slide.title}
+                    </h2>
+                    <p className="mt-2 text-sm text-zinc-300 sm:text-base">{slide.tag}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex justify-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveSlide(i)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  i === activeSlide
+                    ? "w-8 bg-neon shadow-[0_0_12px_var(--neon)]"
+                    : "w-2.5 bg-zinc-600 hover:bg-zinc-400"
+                }`}
+                aria-label={`Ir para slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </section>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {perfis.map(({ to, title, subtitle, desc, icon: Icon, tone }) => (
