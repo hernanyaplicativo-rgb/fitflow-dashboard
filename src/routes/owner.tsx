@@ -123,9 +123,13 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
       </header>
 
       <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-        <div className="mb-8">
-          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Painel do Dono</div>
-          <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Visão geral · Outubro</h1>
+        <div className="relative mb-8 overflow-hidden rounded-2xl border border-border">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80" alt="Ginásio" className="h-48 w-full object-cover sm:h-60" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
+            <div className="text-xs uppercase tracking-[0.2em] text-neon">Painel do Dono</div>
+            <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Visão geral · Outubro</h1>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
