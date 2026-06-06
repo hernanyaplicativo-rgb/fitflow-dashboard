@@ -88,13 +88,17 @@ function ShopView() {
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold sm:text-4xl">
-          Lojas locais. <span className="neon-text">Entrega rápida.</span>
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Suplementos e artigos esportivos de parceiros em Mindelo, Praia e Sal.
-        </p>
+      <div className="relative mb-6 overflow-hidden rounded-2xl border border-border">
+        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=80" alt="Marketplace" className="h-44 w-full object-cover sm:h-56" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
+          <h1 className="text-3xl font-bold sm:text-4xl">
+            Lojas locais. <span className="neon-text">Entrega rápida.</span>
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Suplementos e artigos esportivos de parceiros em Mindelo, Praia e Sal.
+          </p>
+        </div>
       </div>
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
