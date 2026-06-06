@@ -14,6 +14,7 @@ const perfis = [
     desc: "Selecione o ginásio, veja faturação em CVE, alunos ativos e assinatura.",
     icon: Building2,
     tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
   },
   {
     to: "/trainer",
@@ -22,6 +23,7 @@ const perfis = [
     desc: "Monte fichas com séries, repetições, carga e descanso por aluno.",
     icon: Dumbbell,
     tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
   },
   {
     to: "/student/workout",
@@ -30,6 +32,7 @@ const perfis = [
     desc: "Checklist focado para o ginásio com cronómetro de descanso flutuante.",
     icon: ClipboardList,
     tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
   },
   {
     to: "/student/equipment",
@@ -38,6 +41,7 @@ const perfis = [
     desc: "Tutorial instantâneo ao ler o autocolante do equipamento.",
     icon: QrCode,
     tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=900&q=80",
   },
   {
     to: "/student/nutritionist",
@@ -46,6 +50,7 @@ const perfis = [
     desc: "Planos alimentares com produtos locais e metas biométricas.",
     icon: Sparkles,
     tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80",
   },
   {
     to: "/marketplace",
@@ -54,6 +59,7 @@ const perfis = [
     desc: "Suplementos e artigos esportivos de lojas de Cabo Verde, em CVE.",
     icon: ShoppingBag,
     tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -156,29 +162,40 @@ function Index() {
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {perfis.map(({ to, title, subtitle, desc, icon: Icon, tone }) => (
+          {perfis.map(({ to, title, subtitle, desc, icon: Icon, tone, image }) => (
             <Link
               key={to}
               to={to}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:border-transparent hover:shadow-[0_0_0_1px_var(--neon),0_20px_60px_-20px_color-mix(in_oklab,var(--neon)_50%,transparent)]"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:border-transparent hover:shadow-[0_0_0_1px_var(--neon),0_20px_60px_-20px_color-mix(in_oklab,var(--neon)_50%,transparent)]"
             >
-              <div className="flex items-start justify-between">
+              <div className="relative h-40 overflow-hidden">
+                <img
+                  src={image}
+                  alt={title}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                <div className="absolute right-3 top-3">
+                  <ArrowUpRight className="h-4 w-4 text-white/80 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </div>
                 <div
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl border ${
+                  className={`absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl border backdrop-blur ${
                     tone === "neon"
-                      ? "border-neon/40 bg-neon/10 text-neon"
-                      : "border-neon-blue/40 bg-neon-blue/10 text-neon-blue"
+                      ? "border-neon/40 bg-neon/15 text-neon"
+                      : "border-neon-blue/40 bg-neon-blue/15 text-neon-blue"
                   }`}
                 >
                   <Icon className="h-5 w-5" />
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
-              <div className="mt-6 text-xs uppercase tracking-widest text-muted-foreground">
-                {subtitle}
+              <div className="p-6 pt-4">
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                  {subtitle}
+                </div>
+                <h3 className="mt-1 text-xl font-semibold">{title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
               </div>
-              <h3 className="mt-1 text-xl font-semibold">{title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
             </Link>
           ))}
         </div>
