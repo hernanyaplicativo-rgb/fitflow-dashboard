@@ -277,15 +277,21 @@ function TrainerDashboard() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {alunos.map(a => (
-                <div key={a.id} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition hover:border-neon/40">
+                <Link
+                  key={a.id}
+                  to="/trainer/students/$id"
+                  params={{ id: a.id }}
+                  className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition hover:border-neon/40 hover:shadow-[0_0_0_1px_var(--neon)]"
+                >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-neon to-neon-blue text-sm font-bold text-primary-foreground">
                     {a.avatar}
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <div className="font-semibold">{a.name}</div>
                     <div className="text-xs text-muted-foreground">{a.goal}</div>
                   </div>
-                </div>
+                  <span className="text-xs text-muted-foreground transition group-hover:text-neon">Ver →</span>
+                </Link>
               ))}
             </div>
           </div>

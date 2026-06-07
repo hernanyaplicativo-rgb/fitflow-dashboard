@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight } from "lucide-react";
+import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight, Calendar, ScanLine, LogIn } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -61,6 +61,24 @@ const perfis = [
     tone: "blue" as const,
     image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=900&q=80",
   },
+  {
+    to: "/schedule",
+    title: "Aulas Coletivas",
+    subtitle: "Agenda · CrossFit · Pilates · HIIT",
+    desc: "Calendário semanal com inscrição em tempo real e gestão de vagas.",
+    icon: Calendar,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/checkin",
+    title: "Check-in QR",
+    subtitle: "Aluno · Entrada do ginásio",
+    desc: "Regista a tua frequência num segundo ao chegar.",
+    icon: ScanLine,
+    tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=900&q=80",
+  },
 ];
 
 const slides = [
@@ -99,9 +117,14 @@ function Index() {
       <div className="grid-bg absolute inset-x-0 top-0 h-[60vh] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24">
         <header className="mb-16">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_var(--neon)]" />
-            Ecossistema Fitness · Cabo Verde
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_var(--neon)]" />
+              Ecossistema Fitness · Cabo Verde
+            </div>
+            <Link to="/auth" className="flex items-center gap-1.5 rounded-full border border-neon/40 bg-neon/10 px-3.5 py-1.5 text-xs font-medium text-neon transition hover:bg-neon/20">
+              <LogIn className="h-3 w-3" /> Entrar
+            </Link>
           </div>
           <h1 className="mt-4 text-5xl font-bold leading-[0.95] sm:text-7xl">
             PULSE<span className="neon-text">.</span>

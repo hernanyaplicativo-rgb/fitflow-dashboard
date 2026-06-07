@@ -10,16 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrainerRouteImport } from './routes/trainer'
+import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as OwnerRouteImport } from './routes/owner'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as CheckinRouteImport } from './routes/checkin'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
 import { Route as StudentEquipmentRouteImport } from './routes/student.equipment'
+import { Route as TrainerStudentsIdRouteImport } from './routes/trainer.students.$id'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
   path: '/trainer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduleRoute = ScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OwnerRoute = OwnerRouteImport.update({
@@ -30,6 +39,16 @@ const OwnerRoute = OwnerRouteImport.update({
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckinRoute = CheckinRouteImport.update({
+  id: '/checkin',
+  path: '/checkin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -52,70 +71,102 @@ const StudentEquipmentRoute = StudentEquipmentRouteImport.update({
   path: '/student/equipment',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainerStudentsIdRoute = TrainerStudentsIdRouteImport.update({
+  id: '/students/$id',
+  path: '/students/$id',
+  getParentRoute: () => TrainerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/checkin': typeof CheckinRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
-  '/trainer': typeof TrainerRoute
+  '/schedule': typeof ScheduleRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/checkin': typeof CheckinRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
-  '/trainer': typeof TrainerRoute
+  '/schedule': typeof ScheduleRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/checkin': typeof CheckinRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
-  '/trainer': typeof TrainerRoute
+  '/schedule': typeof ScheduleRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/checkin'
     | '/marketplace'
     | '/owner'
+    | '/schedule'
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
+    | '/trainer/students/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/checkin'
     | '/marketplace'
     | '/owner'
+    | '/schedule'
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
+    | '/trainer/students/$id'
   id:
     | '__root__'
     | '/'
+    | '/auth'
+    | '/checkin'
     | '/marketplace'
     | '/owner'
+    | '/schedule'
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
     | '/student/workout'
+    | '/trainer/students/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  CheckinRoute: typeof CheckinRoute
   MarketplaceRoute: typeof MarketplaceRoute
   OwnerRoute: typeof OwnerRoute
-  TrainerRoute: typeof TrainerRoute
+  ScheduleRoute: typeof ScheduleRoute
+  TrainerRoute: typeof TrainerRouteWithChildren
   StudentEquipmentRoute: typeof StudentEquipmentRoute
   StudentNutritionistRoute: typeof StudentNutritionistRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
@@ -130,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/owner': {
       id: '/owner'
       path: '/owner'
@@ -142,6 +200,20 @@ declare module '@tanstack/react-router' {
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkin': {
+      id: '/checkin'
+      path: '/checkin'
+      fullPath: '/checkin'
+      preLoaderRoute: typeof CheckinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -172,14 +244,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentEquipmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trainer/students/$id': {
+      id: '/trainer/students/$id'
+      path: '/students/$id'
+      fullPath: '/trainer/students/$id'
+      preLoaderRoute: typeof TrainerStudentsIdRouteImport
+      parentRoute: typeof TrainerRoute
+    }
   }
 }
 
+interface TrainerRouteChildren {
+  TrainerStudentsIdRoute: typeof TrainerStudentsIdRoute
+}
+
+const TrainerRouteChildren: TrainerRouteChildren = {
+  TrainerStudentsIdRoute: TrainerStudentsIdRoute,
+}
+
+const TrainerRouteWithChildren =
+  TrainerRoute._addFileChildren(TrainerRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  CheckinRoute: CheckinRoute,
   MarketplaceRoute: MarketplaceRoute,
   OwnerRoute: OwnerRoute,
-  TrainerRoute: TrainerRoute,
+  ScheduleRoute: ScheduleRoute,
+  TrainerRoute: TrainerRouteWithChildren,
   StudentEquipmentRoute: StudentEquipmentRoute,
   StudentNutritionistRoute: StudentNutritionistRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
@@ -187,13 +280,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
