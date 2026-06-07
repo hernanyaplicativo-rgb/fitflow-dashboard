@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight } from "lucide-react";
+import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight, Calendar, ScanLine, LogIn } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -60,6 +60,24 @@ const perfis = [
     icon: ShoppingBag,
     tone: "blue" as const,
     image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/schedule",
+    title: "Aulas Coletivas",
+    subtitle: "Agenda · CrossFit · Pilates · HIIT",
+    desc: "Calendário semanal com inscrição em tempo real e gestão de vagas.",
+    icon: Calendar,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/checkin",
+    title: "Check-in QR",
+    subtitle: "Aluno · Entrada do ginásio",
+    desc: "Regista a tua frequência num segundo ao chegar.",
+    icon: ScanLine,
+    tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=900&q=80",
   },
 ];
 

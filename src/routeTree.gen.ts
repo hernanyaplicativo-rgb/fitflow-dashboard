@@ -72,9 +72,9 @@ const StudentEquipmentRoute = StudentEquipmentRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrainerStudentsIdRoute = TrainerStudentsIdRouteImport.update({
-  id: '/trainer/students/$id',
-  path: '/trainer/students/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/students/$id',
+  path: '/students/$id',
+  getParentRoute: () => TrainerRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -84,7 +84,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
   '/schedule': typeof ScheduleRoute
-  '/trainer': typeof TrainerRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
@@ -97,7 +97,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
   '/schedule': typeof ScheduleRoute
-  '/trainer': typeof TrainerRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
@@ -111,7 +111,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
   '/schedule': typeof ScheduleRoute
-  '/trainer': typeof TrainerRoute
+  '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
   '/student/workout': typeof StudentWorkoutRoute
@@ -166,11 +166,10 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   OwnerRoute: typeof OwnerRoute
   ScheduleRoute: typeof ScheduleRoute
-  TrainerRoute: typeof TrainerRoute
+  TrainerRoute: typeof TrainerRouteWithChildren
   StudentEquipmentRoute: typeof StudentEquipmentRoute
   StudentNutritionistRoute: typeof StudentNutritionistRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
-  TrainerStudentsIdRoute: typeof TrainerStudentsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -247,13 +246,24 @@ declare module '@tanstack/react-router' {
     }
     '/trainer/students/$id': {
       id: '/trainer/students/$id'
-      path: '/trainer/students/$id'
+      path: '/students/$id'
       fullPath: '/trainer/students/$id'
       preLoaderRoute: typeof TrainerStudentsIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof TrainerRoute
     }
   }
 }
+
+interface TrainerRouteChildren {
+  TrainerStudentsIdRoute: typeof TrainerStudentsIdRoute
+}
+
+const TrainerRouteChildren: TrainerRouteChildren = {
+  TrainerStudentsIdRoute: TrainerStudentsIdRoute,
+}
+
+const TrainerRouteWithChildren =
+  TrainerRoute._addFileChildren(TrainerRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -262,22 +272,11 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   OwnerRoute: OwnerRoute,
   ScheduleRoute: ScheduleRoute,
-  TrainerRoute: TrainerRoute,
+  TrainerRoute: TrainerRouteWithChildren,
   StudentEquipmentRoute: StudentEquipmentRoute,
   StudentNutritionistRoute: StudentNutritionistRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
-  TrainerStudentsIdRoute: TrainerStudentsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
