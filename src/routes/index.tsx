@@ -117,9 +117,14 @@ function Index() {
       <div className="grid-bg absolute inset-x-0 top-0 h-[60vh] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24">
         <header className="mb-16">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_var(--neon)]" />
-            Ecossistema Fitness · Cabo Verde
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_var(--neon)]" />
+              Ecossistema Fitness · Cabo Verde
+            </div>
+            <Link to="/auth" className="flex items-center gap-1.5 rounded-full border border-neon/40 bg-neon/10 px-3.5 py-1.5 text-xs font-medium text-neon transition hover:bg-neon/20">
+              <LogIn className="h-3 w-3" /> Entrar
+            </Link>
           </div>
           <h1 className="mt-4 text-5xl font-bold leading-[0.95] sm:text-7xl">
             PULSE<span className="neon-text">.</span>
