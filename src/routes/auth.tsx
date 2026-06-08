@@ -12,15 +12,20 @@ function AuthPage() {
   const [perfil, setPerfil] = useState<"aluno" | "treinador" | "dono" | "loja">("aluno");
   const navigate = useNavigate();
 
+  const destFor = (p: typeof perfil) =>
+    p === "aluno" ? "/student/workout" : p === "treinador" ? "/trainer" : p === "dono" ? "/owner" : "/marketplace";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success(mode === "login" ? "Bem-vindo de volta!" : "Conta criada com sucesso!", {
       description: `A entrar como ${perfil}…`,
     });
-    setTimeout(() => {
-      const dest = perfil === "aluno" ? "/student/workout" : perfil === "treinador" ? "/trainer" : perfil === "dono" ? "/owner" : "/marketplace";
-      navigate({ to: dest });
-    }, 600);
+    setTimeout(() => navigate({ to: destFor(perfil) }), 600);
+  };
+
+  const handleGuest = () => {
+    toast("Modo convidado ativado", { description: "Acesso de demonstração — sem dados guardados." });
+    setTimeout(() => navigate({ to: destFor(perfil) }), 400);
   };
 
   return (
