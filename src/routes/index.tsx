@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight, Calendar, ScanLine, LogIn } from "lucide-react";
+import { Building2, Dumbbell, ClipboardList, ShoppingBag, Sparkles, QrCode, ArrowUpRight, Calendar, ScanLine, LogIn, Users, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -78,6 +78,24 @@ const perfis = [
     icon: ScanLine,
     tone: "blue" as const,
     image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/community",
+    title: "Comunidade",
+    subtitle: "Feed · Liga · Desafios",
+    desc: "Vê PRs da tribo, sobe na liga semanal e aceita desafios em grupo.",
+    icon: Users,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1571388208497-71bedc66e932?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/progress",
+    title: "Progresso & PRs",
+    subtitle: "Streak · Prontidão · Recordes",
+    desc: "Streak, recuperação, recordes pessoais e resumo semanal com IA.",
+    icon: TrendingUp,
+    tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80",
   },
 ];
 

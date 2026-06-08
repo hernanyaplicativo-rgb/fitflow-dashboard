@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrainerRouteImport } from './routes/trainer'
 import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as OwnerRouteImport } from './routes/owner'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CheckinRouteImport } from './routes/checkin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,6 +33,11 @@ const ScheduleRoute = ScheduleRouteImport.update({
   path: '/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OwnerRoute = OwnerRouteImport.update({
   id: '/owner',
   path: '/owner',
@@ -39,6 +46,11 @@ const OwnerRoute = OwnerRouteImport.update({
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckinRoute = CheckinRouteImport.update({
@@ -81,8 +93,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/checkin': typeof CheckinRoute
+  '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
+  '/progress': typeof ProgressRoute
   '/schedule': typeof ScheduleRoute
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
@@ -94,8 +108,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/checkin': typeof CheckinRoute
+  '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
+  '/progress': typeof ProgressRoute
   '/schedule': typeof ScheduleRoute
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
@@ -108,8 +124,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/checkin': typeof CheckinRoute
+  '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
   '/owner': typeof OwnerRoute
+  '/progress': typeof ProgressRoute
   '/schedule': typeof ScheduleRoute
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
@@ -123,8 +141,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/checkin'
+    | '/community'
     | '/marketplace'
     | '/owner'
+    | '/progress'
     | '/schedule'
     | '/trainer'
     | '/student/equipment'
@@ -136,8 +156,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/checkin'
+    | '/community'
     | '/marketplace'
     | '/owner'
+    | '/progress'
     | '/schedule'
     | '/trainer'
     | '/student/equipment'
@@ -149,8 +171,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/checkin'
+    | '/community'
     | '/marketplace'
     | '/owner'
+    | '/progress'
     | '/schedule'
     | '/trainer'
     | '/student/equipment'
@@ -163,8 +187,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CheckinRoute: typeof CheckinRoute
+  CommunityRoute: typeof CommunityRoute
   MarketplaceRoute: typeof MarketplaceRoute
   OwnerRoute: typeof OwnerRoute
+  ProgressRoute: typeof ProgressRoute
   ScheduleRoute: typeof ScheduleRoute
   TrainerRoute: typeof TrainerRouteWithChildren
   StudentEquipmentRoute: typeof StudentEquipmentRoute
@@ -188,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/owner': {
       id: '/owner'
       path: '/owner'
@@ -200,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkin': {
@@ -269,8 +309,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CheckinRoute: CheckinRoute,
+  CommunityRoute: CommunityRoute,
   MarketplaceRoute: MarketplaceRoute,
   OwnerRoute: OwnerRoute,
+  ProgressRoute: ProgressRoute,
   ScheduleRoute: ScheduleRoute,
   TrainerRoute: TrainerRouteWithChildren,
   StudentEquipmentRoute: StudentEquipmentRoute,
