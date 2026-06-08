@@ -132,6 +132,14 @@ function AuthPage() {
               <button className="rounded-xl border border-border bg-surface/50 py-2.5 text-sm font-medium transition hover:border-neon/40">Apple</button>
             </div>
 
+            <button
+              type="button"
+              onClick={handleGuest}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-neon/40 bg-neon/5 py-2.5 text-sm font-medium text-neon transition hover:bg-neon/10"
+            >
+              Entrar como convidado <ArrowRight className="h-4 w-4" />
+            </button>
+
             <p className="mt-6 text-center text-xs text-muted-foreground">
               Ao continuar aceitas os <span className="text-foreground underline">Termos</span> e a <span className="text-foreground underline">Privacidade</span>.
             </p>
