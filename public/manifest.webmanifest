@@ -1,0 +1,17 @@
+{
+  "name": "PULSE — Ecossistema Fitness",
+  "short_name": "PULSE",
+  "description": "Treine. Acompanhe. Evolua. Ginásios, treinos, nutrição IA e marketplace em Cabo Verde.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0f14",
+  "theme_color": "#0a0f14",
+  "lang": "pt-PT",
+  "categories": ["health", "fitness", "lifestyle"],
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

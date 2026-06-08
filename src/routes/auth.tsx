@@ -12,15 +12,20 @@ function AuthPage() {
   const [perfil, setPerfil] = useState<"aluno" | "treinador" | "dono" | "loja">("aluno");
   const navigate = useNavigate();
 
+  const destFor = (p: typeof perfil) =>
+    p === "aluno" ? "/student/workout" : p === "treinador" ? "/trainer" : p === "dono" ? "/owner" : "/marketplace";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success(mode === "login" ? "Bem-vindo de volta!" : "Conta criada com sucesso!", {
       description: `A entrar como ${perfil}…`,
     });
-    setTimeout(() => {
-      const dest = perfil === "aluno" ? "/student/workout" : perfil === "treinador" ? "/trainer" : perfil === "dono" ? "/owner" : "/marketplace";
-      navigate({ to: dest });
-    }, 600);
+    setTimeout(() => navigate({ to: destFor(perfil) }), 600);
+  };
+
+  const handleGuest = () => {
+    toast("Modo convidado ativado", { description: "Acesso de demonstração — sem dados guardados." });
+    setTimeout(() => navigate({ to: destFor(perfil) }), 400);
   };
 
   return (
@@ -126,6 +131,14 @@ function AuthPage() {
               <button className="rounded-xl border border-border bg-surface/50 py-2.5 text-sm font-medium transition hover:border-neon/40">Google</button>
               <button className="rounded-xl border border-border bg-surface/50 py-2.5 text-sm font-medium transition hover:border-neon/40">Apple</button>
             </div>
+
+            <button
+              type="button"
+              onClick={handleGuest}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-neon/40 bg-neon/5 py-2.5 text-sm font-medium text-neon transition hover:bg-neon/10"
+            >
+              Entrar como convidado <ArrowRight className="h-4 w-4" />
+            </button>
 
             <p className="mt-6 text-center text-xs text-muted-foreground">
               Ao continuar aceitas os <span className="text-foreground underline">Termos</span> e a <span className="text-foreground underline">Privacidade</span>.
