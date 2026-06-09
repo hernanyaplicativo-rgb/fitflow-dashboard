@@ -16,9 +16,12 @@ import { Route as OwnerRouteImport } from './routes/owner'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CheckinRouteImport } from './routes/checkin'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrainerExercisesRouteImport } from './routes/trainer.exercises'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
+import { Route as StudentProfileRouteImport } from './routes/student.profile'
 import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
 import { Route as StudentEquipmentRouteImport } from './routes/student.equipment'
 import { Route as TrainerStudentsIdRouteImport } from './routes/trainer.students.$id'
@@ -58,6 +61,11 @@ const CheckinRoute = CheckinRouteImport.update({
   path: '/checkin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -68,9 +76,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainerExercisesRoute = TrainerExercisesRouteImport.update({
+  id: '/exercises',
+  path: '/exercises',
+  getParentRoute: () => TrainerRoute,
+} as any)
 const StudentWorkoutRoute = StudentWorkoutRouteImport.update({
   id: '/student/workout',
   path: '/student/workout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/student/profile',
+  path: '/student/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentNutritionistRoute = StudentNutritionistRouteImport.update({
@@ -92,6 +110,7 @@ const TrainerStudentsIdRoute = TrainerStudentsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/checkin': typeof CheckinRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
@@ -101,12 +120,15 @@ export interface FileRoutesByFullPath {
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/exercises': typeof TrainerExercisesRoute
   '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/checkin': typeof CheckinRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
@@ -116,13 +138,16 @@ export interface FileRoutesByTo {
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/exercises': typeof TrainerExercisesRoute
   '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatRoute
   '/checkin': typeof CheckinRoute
   '/community': typeof CommunityRoute
   '/marketplace': typeof MarketplaceRoute
@@ -132,7 +157,9 @@ export interface FileRoutesById {
   '/trainer': typeof TrainerRouteWithChildren
   '/student/equipment': typeof StudentEquipmentRoute
   '/student/nutritionist': typeof StudentNutritionistRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student/workout': typeof StudentWorkoutRoute
+  '/trainer/exercises': typeof TrainerExercisesRoute
   '/trainer/students/$id': typeof TrainerStudentsIdRoute
 }
 export interface FileRouteTypes {
@@ -140,6 +167,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/chat'
     | '/checkin'
     | '/community'
     | '/marketplace'
@@ -149,12 +177,15 @@ export interface FileRouteTypes {
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
+    | '/student/profile'
     | '/student/workout'
+    | '/trainer/exercises'
     | '/trainer/students/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/chat'
     | '/checkin'
     | '/community'
     | '/marketplace'
@@ -164,12 +195,15 @@ export interface FileRouteTypes {
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
+    | '/student/profile'
     | '/student/workout'
+    | '/trainer/exercises'
     | '/trainer/students/$id'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/chat'
     | '/checkin'
     | '/community'
     | '/marketplace'
@@ -179,13 +213,16 @@ export interface FileRouteTypes {
     | '/trainer'
     | '/student/equipment'
     | '/student/nutritionist'
+    | '/student/profile'
     | '/student/workout'
+    | '/trainer/exercises'
     | '/trainer/students/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ChatRoute: typeof ChatRoute
   CheckinRoute: typeof CheckinRoute
   CommunityRoute: typeof CommunityRoute
   MarketplaceRoute: typeof MarketplaceRoute
@@ -195,6 +232,7 @@ export interface RootRouteChildren {
   TrainerRoute: typeof TrainerRouteWithChildren
   StudentEquipmentRoute: typeof StudentEquipmentRoute
   StudentNutritionistRoute: typeof StudentNutritionistRoute
+  StudentProfileRoute: typeof StudentProfileRoute
   StudentWorkoutRoute: typeof StudentWorkoutRoute
 }
 
@@ -249,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckinRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -263,11 +308,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trainer/exercises': {
+      id: '/trainer/exercises'
+      path: '/exercises'
+      fullPath: '/trainer/exercises'
+      preLoaderRoute: typeof TrainerExercisesRouteImport
+      parentRoute: typeof TrainerRoute
+    }
     '/student/workout': {
       id: '/student/workout'
       path: '/student/workout'
       fullPath: '/student/workout'
       preLoaderRoute: typeof StudentWorkoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/student/nutritionist': {
@@ -295,10 +354,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface TrainerRouteChildren {
+  TrainerExercisesRoute: typeof TrainerExercisesRoute
   TrainerStudentsIdRoute: typeof TrainerStudentsIdRoute
 }
 
 const TrainerRouteChildren: TrainerRouteChildren = {
+  TrainerExercisesRoute: TrainerExercisesRoute,
   TrainerStudentsIdRoute: TrainerStudentsIdRoute,
 }
 
@@ -308,6 +369,7 @@ const TrainerRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ChatRoute: ChatRoute,
   CheckinRoute: CheckinRoute,
   CommunityRoute: CommunityRoute,
   MarketplaceRoute: MarketplaceRoute,
@@ -317,6 +379,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrainerRoute: TrainerRouteWithChildren,
   StudentEquipmentRoute: StudentEquipmentRoute,
   StudentNutritionistRoute: StudentNutritionistRoute,
+  StudentProfileRoute: StudentProfileRoute,
   StudentWorkoutRoute: StudentWorkoutRoute,
 }
 export const routeTree = rootRouteImport
