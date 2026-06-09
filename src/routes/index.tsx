@@ -97,6 +97,33 @@ const perfis = [
     tone: "blue" as const,
     image: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80",
   },
+  {
+    to: "/student/profile",
+    title: "Perfil do Aluno",
+    subtitle: "Customizável · 1RM Auto",
+    desc: "Foto, bio, objetivo e Força Máxima Teórica calculada em tempo real.",
+    icon: UserCircle2,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1583500178690-f7ed4f1c2b89?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/chat",
+    title: "Chat com Treinador",
+    subtitle: "Mensagens em tempo real",
+    desc: "Conversa direta com o teu coach e recebe fichas como cards no chat.",
+    icon: MessageCircle,
+    tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/trainer/exercises",
+    title: "Cadastro de Exercícios",
+    subtitle: "Treinador / Dono · Catálogo",
+    desc: "Tira foto da máquina e define séries, repetições e carga padrão.",
+    icon: Wrench,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
+  },
 ];
 
 const slides = [
