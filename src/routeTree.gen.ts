@@ -19,11 +19,11 @@ import { Route as CheckinRouteImport } from './routes/checkin'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrainerExercisesRouteImport } from './routes/trainer.exercises'
 import { Route as StudentWorkoutRouteImport } from './routes/student.workout'
 import { Route as StudentProfileRouteImport } from './routes/student.profile'
 import { Route as StudentNutritionistRouteImport } from './routes/student.nutritionist'
 import { Route as StudentEquipmentRouteImport } from './routes/student.equipment'
-import { Route as TrainerExercisesRouteImport } from './routes/trainer.exercises'
 import { Route as TrainerStudentsIdRouteImport } from './routes/trainer.students.$id'
 
 const TrainerRoute = TrainerRouteImport.update({
@@ -76,6 +76,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainerExercisesRoute = TrainerExercisesRouteImport.update({
+  id: '/exercises',
+  path: '/exercises',
+  getParentRoute: () => TrainerRoute,
+} as any)
 const StudentWorkoutRoute = StudentWorkoutRouteImport.update({
   id: '/student/workout',
   path: '/student/workout',
@@ -95,11 +100,6 @@ const StudentEquipmentRoute = StudentEquipmentRouteImport.update({
   id: '/student/equipment',
   path: '/student/equipment',
   getParentRoute: () => rootRouteImport,
-} as any)
-const TrainerExercisesRoute = TrainerExercisesRouteImport.update({
-  id: '/exercises',
-  path: '/exercises',
-  getParentRoute: () => TrainerRoute,
 } as any)
 const TrainerStudentsIdRoute = TrainerStudentsIdRouteImport.update({
   id: '/students/$id',
@@ -308,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trainer/exercises': {
+      id: '/trainer/exercises'
+      path: '/exercises'
+      fullPath: '/trainer/exercises'
+      preLoaderRoute: typeof TrainerExercisesRouteImport
+      parentRoute: typeof TrainerRoute
+    }
     '/student/workout': {
       id: '/student/workout'
       path: '/student/workout'
@@ -335,13 +342,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/student/equipment'
       preLoaderRoute: typeof StudentEquipmentRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/trainer/exercises': {
-      id: '/trainer/exercises'
-      path: '/exercises'
-      fullPath: '/trainer/exercises'
-      preLoaderRoute: typeof TrainerExercisesRouteImport
-      parentRoute: typeof TrainerRoute
     }
     '/trainer/students/$id': {
       id: '/trainer/students/$id'
