@@ -409,3 +409,20 @@ function OrderStatus({ status }: { status: string }) {
     </span>
   );
 }
+
+function Field({
+  label, value, onChange, placeholder, type = "text",
+}: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; type?: string }) {
+  return (
+    <label className="block">
+      <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</div>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="mt-1 w-full rounded-lg border border-border bg-surface/40 px-3 py-2 text-sm outline-none focus:border-neon/50"
+      />
+    </label>
+  );
+}
