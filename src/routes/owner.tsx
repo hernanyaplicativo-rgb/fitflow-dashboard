@@ -198,12 +198,68 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
           </aside>
         </div>
 
+        {/* Fotos do ginásio */}
+        <GymPhotos gymName={gym.name} />
+
         {/* Quick links */}
         <section className="mt-6 grid gap-3 sm:grid-cols-3">
-          <QuickLink to="/trainer" icon={Activity} label="Criar treino" desc="Aceder ao painel do treinador" />
+          <QuickLink to="/trainer/exercises" icon={Camera} label="Máquinas & equipamentos" desc="Registar com foto real" />
           <QuickLink to="/marketplace" icon={Calendar} label="Marketplace" desc="Vendas e parceiros" />
-          <QuickLink to="/student/nutritionist" icon={Users} label="Nutricionista IA" desc="Visualizar como aluno" />
+          <QuickLink to="/trainer" icon={Activity} label="Criar treino" desc="Aceder ao painel do treinador" />
         </section>
+      </main>
+    </div>
+  );
+}
+
+type GymPhoto = { id: string; url: string; legenda: string };
+
+function GymPhotos({ gymName }: { gymName: string }) {
+  const [fotos, setFotos] = useState<GymPhoto[]>([]);
+
+  return (
+    <section className="mt-6 rounded-2xl border border-border bg-card p-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold">Fotos do ginásio</h2>
+          <p className="text-xs text-muted-foreground">
+            Tira fotos do espaço, das máquinas e das aulas de {gymName} — aparecem no perfil público.
+          </p>
+        </div>
+        <PhotoCaptureButton
+          label="Tirar foto"
+          onCapture={(url) => {
+            setFotos((f) => [{ id: Date.now().toString(), url, legenda: "Nova foto" }, ...f]);
+            toast.success("Foto adicionada à galeria do ginásio!");
+          }}
+        />
+      </div>
+
+      {fotos.length === 0 ? (
+        <div className="mt-5 flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-surface/40 py-12 text-center">
+          <Camera className="h-6 w-6 text-muted-foreground" />
+          <p className="text-sm text-muted-foreground">Ainda sem fotos. Usa a câmara do telemóvel para começar.</p>
+        </div>
+      ) : (
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {fotos.map((f) => (
+            <figure key={f.id} className="group relative overflow-hidden rounded-xl border border-border">
+              <img src={f.url} alt={f.legenda} className="aspect-square w-full object-cover" />
+              <button
+                onClick={() => setFotos((list) => list.filter((x) => x.id !== f.id))}
+                className="absolute right-2 top-2 rounded-lg bg-background/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur transition group-hover:opacity-100 hover:text-destructive"
+                aria-label="Remover foto"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </figure>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
       </main>
     </div>
   );
