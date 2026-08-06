@@ -2,9 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Building2, ChevronLeft, Users, GraduationCap, Wallet, Crown,
-  TrendingUp, ArrowUpRight, LogIn, Check, Activity, Calendar,
+  TrendingUp, ArrowUpRight, LogIn, Check, Activity, Calendar, Camera, Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { PhotoCaptureButton } from "../components/PhotoCapture";
+
 
 export const Route = createFileRoute("/owner")({
   component: OwnerArea,
