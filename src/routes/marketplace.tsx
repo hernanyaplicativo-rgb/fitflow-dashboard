@@ -2,10 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ChevronLeft, DollarSign, Package, AlertTriangle, Edit3, MapPin, TrendingUp, Search,
-  ShoppingBag, Store, MessageCircle, CreditCard, Star, Filter,
+  ShoppingBag, Store, MessageCircle, CreditCard, Star, Filter, Camera,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useStore, type Produto } from "../lib/store";
+import { useStore } from "../lib/store";
+import { PhotoCaptureButton } from "../components/PhotoCapture";
+
 
 export const Route = createFileRoute("/marketplace")({
   component: Marketplace,
