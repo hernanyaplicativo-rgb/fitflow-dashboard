@@ -260,10 +260,7 @@ function GymPhotos({ gymName }: { gymName: string }) {
   );
 }
 
-      </main>
-    </div>
-  );
-}
+
 
 function Kpi({
   icon: Icon, label, value, delta, tone,
