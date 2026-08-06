@@ -199,10 +199,22 @@ const pedidos = [
 
 function PartnerView() {
   const { inventario, addProduto } = useStore();
-  
-  const handleNovoProduto = () => {
-    addProduto({ id: Date.now(), name: "Novo Suplemento Teste", price: 2500, stock: 10, img: "📦" });
-    toast.success("Produto adicionado!", { description: "Novo produto disponível no inventário." });
+  const [novo, setNovo] = useState<{ name: string; price: string; stock: string; img: string } | null>(null);
+
+  const guardar = () => {
+    if (!novo || !novo.name.trim()) {
+      toast.error("Dá um nome ao produto.");
+      return;
+    }
+    addProduto({
+      id: Date.now(),
+      name: novo.name.trim(),
+      price: Number(novo.price) || 0,
+      stock: Number(novo.stock) || 0,
+      img: novo.img || "📦",
+    });
+    setNovo(null);
+    toast.success("Produto adicionado!", { description: "Já está visível no inventário e na loja." });
   };
 
   return (
@@ -219,6 +231,49 @@ function PartnerView() {
         <Kpi icon={AlertTriangle} label="Stock baixo" value="4" delta="Ação necessária" tone="warn" />
       </div>
 
+      {novo && (
+        <section className="mt-8 rounded-2xl border border-neon/40 bg-card p-6">
+          <h2 className="text-lg font-semibold">Novo produto</h2>
+          <p className="text-xs text-muted-foreground">Tira uma foto real do produto para vender melhor.</p>
+
+          <div className="mt-5 grid gap-5 md:grid-cols-[220px_1fr]">
+            <div>
+              <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-border bg-surface/40">
+                {novo.img && novo.img.startsWith("data:") ? (
+                  <img src={novo.img} alt="Foto do produto" className="h-full w-full object-cover" />
+                ) : (
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                    <Camera className="h-6 w-6" />
+                    <span className="text-xs">Sem foto</span>
+                  </div>
+                )}
+              </div>
+              <PhotoCaptureButton
+                label={novo.img ? "Repetir foto" : "Tirar foto"}
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-2.5 text-sm font-semibold text-primary-foreground"
+                onCapture={(url) => setNovo((n) => (n ? { ...n, img: url } : n))}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <Field label="Nome do produto" value={novo.name} onChange={(v) => setNovo({ ...novo, name: v })} placeholder="Ex: Whey Protein 900g" />
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Preço (CVE)" type="number" value={novo.price} onChange={(v) => setNovo({ ...novo, price: v })} />
+                <Field label="Stock" type="number" value={novo.stock} onChange={(v) => setNovo({ ...novo, stock: v })} />
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button onClick={guardar} className="rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground neon-glow">
+                  Guardar produto
+                </button>
+                <button onClick={() => setNovo(null)} className="rounded-xl border border-border px-5 py-2.5 text-sm text-muted-foreground hover:text-foreground">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]">
         <section className="rounded-2xl border border-border bg-card">
           <header className="flex items-center justify-between border-b border-border p-5">
@@ -226,13 +281,14 @@ function PartnerView() {
               <h2 className="text-lg font-semibold">Inventário</h2>
               <p className="text-xs text-muted-foreground">{inventario.length} produtos</p>
             </div>
-            <button 
-              onClick={handleNovoProduto}
-              className="rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-primary-foreground neon-glow"
+            <button
+              onClick={() => setNovo({ name: "", price: "", stock: "", img: "" })}
+              className="flex items-center gap-2 rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-primary-foreground neon-glow"
             >
-              + Novo produto
+              <Camera className="h-4 w-4" /> Novo produto
             </button>
           </header>
+
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
