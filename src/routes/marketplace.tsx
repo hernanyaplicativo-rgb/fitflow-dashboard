@@ -306,9 +306,12 @@ function PartnerView() {
                   <tr key={p.id} className="border-t border-border/60 transition hover:bg-surface/50">
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface text-xl">
-                          {p.img}
+                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border border-border bg-surface text-xl">
+                          {p.img.startsWith("data:") || p.img.startsWith("http")
+                            ? <img src={p.img} alt={p.name} className="h-full w-full object-cover" />
+                            : p.img}
                         </div>
+
                         <span className="font-medium">{p.name}</span>
                       </div>
                     </td>
