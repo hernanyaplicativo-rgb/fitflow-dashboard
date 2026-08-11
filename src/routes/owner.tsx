@@ -202,11 +202,13 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
         <GymPhotos gymName={gym.name} />
 
         {/* Quick links */}
-        <section className="mt-6 grid gap-3 sm:grid-cols-3">
+        <section className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <QuickLink to="/analytics" icon={BarChart3} label="Analytics avançados" desc="Retenção, churn e horas de pico" />
           <QuickLink to="/trainer/exercises" icon={Camera} label="Máquinas & equipamentos" desc="Registar com foto real" />
           <QuickLink to="/marketplace" icon={Calendar} label="Marketplace" desc="Vendas e parceiros" />
           <QuickLink to="/trainer" icon={Activity} label="Criar treino" desc="Aceder ao painel do treinador" />
         </section>
+
       </main>
     </div>
   );
