@@ -124,7 +124,26 @@ const perfis = [
     tone: "neon" as const,
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
   },
+  {
+    to: "/devices",
+    title: "Wearables & Sync",
+    subtitle: "Apple Health · Garmin · Strava",
+    desc: "Passos, calorias, frequência cardíaca e sono a entrar automaticamente.",
+    icon: Watch,
+    tone: "blue" as const,
+    image: "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    to: "/analytics",
+    title: "Analytics do Ginásio",
+    subtitle: "Dono · Receita · Retenção · Churn",
+    desc: "Horas de pico, produtos mais vendidos e alunos em risco de saída.",
+    icon: BarChart3,
+    tone: "neon" as const,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+  },
 ];
+
 
 const slides = [
   {
