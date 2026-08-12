@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronLeft, Pause, Play, Plus, RotateCcw, Timer, Flame } from "lucide-react";
+import { ExerciseVideoModal } from "../components/ExerciseVideo";
+import videoSupino from "../assets/video-supino.mp4.asset.json";
+import videoRemada from "../assets/video-remada.mp4.asset.json";
+import videoDesenvolvimento from "../assets/video-desenvolvimento.mp4.asset.json";
 
 export const Route = createFileRoute("/student/workout")({
   component: StudentWorkout,
@@ -12,6 +16,7 @@ type Block = {
   id: string;
   name: string;
   image: string;
+  video: string;
   group: string;
   sets: SetRow[];
 };
@@ -22,6 +27,7 @@ const initial: Block[] = [
     name: "Supino reto com barra",
     group: "Peito",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80",
+    video: videoSupino.url,
     sets: [
       { id: "a", load: "60", reps: "10", done: false },
       { id: "b", load: "65", reps: "8", done: false },
@@ -34,6 +40,7 @@ const initial: Block[] = [
     name: "Remada curvada",
     group: "Costas",
     image: "https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=900&q=80",
+    video: videoRemada.url,
     sets: [
       { id: "a", load: "50", reps: "10", done: false },
       { id: "b", load: "55", reps: "8", done: false },
@@ -45,6 +52,7 @@ const initial: Block[] = [
     name: "Desenvolvimento militar",
     group: "Ombros",
     image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
+    video: videoDesenvolvimento.url,
     sets: [
       { id: "a", load: "30", reps: "10", done: false },
       { id: "b", load: "35", reps: "8", done: false },
@@ -54,6 +62,7 @@ const initial: Block[] = [
 ];
 
 const REST = 60;
+
 
 function StudentWorkout() {
   const [blocks, setBlocks] = useState<Block[]>(initial);
