@@ -31,7 +31,9 @@ const seccoes = [
 
 function EquipmentDetail() {
   const [open, setOpen] = useState<string | null>("Ajuste do banco");
+  const [videoOpen, setVideoOpen] = useState(false);
   const { addExercise } = useStore();
+
 
   const handleAdd = () => {
     addExercise({
@@ -54,10 +56,11 @@ function EquipmentDetail() {
           <img src="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=900&q=80" alt="Leg Press" className="absolute inset-0 h-full w-full object-cover opacity-80" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <button className="group relative flex h-20 w-20 items-center justify-center rounded-full bg-neon text-primary-foreground transition hover:scale-105 neon-glow">
+            <button onClick={() => setVideoOpen(true)} aria-label="Ver vídeo do exercício" className="group relative flex h-20 w-20 items-center justify-center rounded-full bg-neon text-primary-foreground transition hover:scale-105 neon-glow">
               <Play className="h-8 w-8 fill-current" />
               <span className="absolute inset-0 animate-ping rounded-full bg-neon/40" />
             </button>
+
           </div>
           <div className="absolute left-4 top-4">
             <Link to="/student/workout" className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card/80 text-muted-foreground backdrop-blur">
