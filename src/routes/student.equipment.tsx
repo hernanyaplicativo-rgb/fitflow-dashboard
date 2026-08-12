@@ -3,10 +3,13 @@ import { useState } from "react";
 import { ChevronLeft, Play, ChevronDown, QrCode, Shield, Target, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 import { useStore } from "../lib/store";
+import { ExerciseVideoModal } from "../components/ExerciseVideo";
+import videoLegPress from "../assets/video-legpress.mp4.asset.json";
 
 export const Route = createFileRoute("/student/equipment")({
   component: EquipmentDetail,
 });
+
 
 const seccoes = [
   {
