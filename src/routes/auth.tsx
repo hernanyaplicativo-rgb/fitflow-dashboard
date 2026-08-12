@@ -44,7 +44,7 @@ function AuthPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neon text-primary-foreground">
                 <Dumbbell className="h-6 w-6" />
               </div>
-              <div className="text-2xl font-bold">PULSE<span className="neon-text">.</span></div>
+              <div className="text-2xl font-bold">Mindelo <span className="neon-text">Gym</span></div>
             </div>
             <h1 className="mt-8 text-5xl font-bold leading-tight">
               Entre no seu<br /><span className="neon-text">ecossistema fitness</span>.
@@ -77,7 +77,7 @@ function AuthPage() {
 
             <h2 className="text-2xl font-bold">{mode === "login" ? "Bem-vindo de volta" : "Vamos começar"}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              {mode === "login" ? "Acede à tua conta PULSE" : "Cria uma conta gratuita em 30 segundos"}
+              {mode === "login" ? "Acede à tua conta Mindelo Gym" : "Cria uma conta gratuita em 30 segundos"}
             </p>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">

@@ -191,7 +191,7 @@ function Index() {
             </Link>
           </div>
           <h1 className="mt-4 text-5xl font-bold leading-[0.95] sm:text-7xl">
-            PULSE<span className="neon-text">.</span>
+            Mindelo <span className="neon-text">Gym</span>
             <br />
             <span className="text-muted-foreground">Treine. Acompanhe. Evolua.</span>
           </h1>
@@ -288,7 +288,7 @@ function Index() {
         </div>
 
         <footer className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
-          <span>© PULSE · Mindelo · Praia · São Vicente</span>
+          <span>© Mindelo Gym · Mindelo · Praia · São Vicente</span>
           <span>Versão demo · Todos os valores em <span className="neon-text">CVE</span></span>
         </footer>
       </div>

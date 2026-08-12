@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronLeft, Pause, Play, Plus, RotateCcw, Timer, Flame } from "lucide-react";
+import { ExerciseVideoModal } from "../components/ExerciseVideo";
+import videoSupino from "../assets/video-supino.mp4.asset.json";
+import videoRemada from "../assets/video-remada.mp4.asset.json";
+import videoDesenvolvimento from "../assets/video-desenvolvimento.mp4.asset.json";
 
 export const Route = createFileRoute("/student/workout")({
   component: StudentWorkout,
@@ -12,6 +16,7 @@ type Block = {
   id: string;
   name: string;
   image: string;
+  video: string;
   group: string;
   sets: SetRow[];
 };
@@ -22,6 +27,7 @@ const initial: Block[] = [
     name: "Supino reto com barra",
     group: "Peito",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80",
+    video: videoSupino.url,
     sets: [
       { id: "a", load: "60", reps: "10", done: false },
       { id: "b", load: "65", reps: "8", done: false },
@@ -34,6 +40,7 @@ const initial: Block[] = [
     name: "Remada curvada",
     group: "Costas",
     image: "https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=900&q=80",
+    video: videoRemada.url,
     sets: [
       { id: "a", load: "50", reps: "10", done: false },
       { id: "b", load: "55", reps: "8", done: false },
@@ -45,6 +52,7 @@ const initial: Block[] = [
     name: "Desenvolvimento militar",
     group: "Ombros",
     image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
+    video: videoDesenvolvimento.url,
     sets: [
       { id: "a", load: "30", reps: "10", done: false },
       { id: "b", load: "35", reps: "8", done: false },
@@ -55,10 +63,13 @@ const initial: Block[] = [
 
 const REST = 60;
 
+
 function StudentWorkout() {
   const [blocks, setBlocks] = useState<Block[]>(initial);
+  const [video, setVideo] = useState<{ title: string; src: string; poster: string } | null>(null);
   const [rest, setRest] = useState<{ remaining: number; running: boolean } | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
 
   useEffect(() => {
     if (rest?.running) {
@@ -159,11 +170,19 @@ function StudentWorkout() {
               <div className="relative h-36">
                 <img src={b.image} alt={b.name} className="absolute inset-0 h-full w-full object-cover opacity-90" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <button
+                  onClick={() => setVideo({ title: b.name, src: b.video, poster: b.image })}
+                  aria-label={`Ver vídeo de ${b.name}`}
+                  className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-neon px-3 py-1.5 text-[11px] font-bold text-primary-foreground neon-glow"
+                >
+                  <Play className="h-3 w-3 fill-current" /> Ver vídeo
+                </button>
                 <div className="absolute bottom-3 left-4 right-4">
                   <div className="text-[10px] uppercase tracking-widest text-neon">Exercício {String(i + 1).padStart(2, "0")} · {b.group}</div>
                   <h2 className="text-lg font-bold">{b.name}</h2>
                 </div>
               </div>
+
 
               {/* Sets table */}
               <div className="p-4">
@@ -213,6 +232,15 @@ function StudentWorkout() {
           ))}
         </div>
       </div>
+
+      <ExerciseVideoModal
+        open={!!video}
+        onClose={() => setVideo(null)}
+        title={video?.title ?? ""}
+        src={video?.src ?? ""}
+        poster={video?.poster}
+      />
     </div>
+
   );
 }
