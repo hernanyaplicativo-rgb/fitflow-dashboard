@@ -191,7 +191,7 @@ function Index() {
             </Link>
           </div>
           <h1 className="mt-4 text-5xl font-bold leading-[0.95] sm:text-7xl">
-            Mindelo Gym<span className="neon-text">.</span>
+            Mindelo <span className="neon-text">Gym</span>
             <br />
             <span className="text-muted-foreground">Treine. Acompanhe. Evolua.</span>
           </h1>

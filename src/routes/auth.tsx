@@ -44,7 +44,7 @@ function AuthPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neon text-primary-foreground">
                 <Dumbbell className="h-6 w-6" />
               </div>
-              <div className="text-2xl font-bold">Mindelo Gym<span className="neon-text">.</span></div>
+              <div className="text-2xl font-bold">Mindelo <span className="neon-text">Gym</span></div>
             </div>
             <h1 className="mt-8 text-5xl font-bold leading-tight">
               Entre no seu<br /><span className="neon-text">ecossistema fitness</span>.
