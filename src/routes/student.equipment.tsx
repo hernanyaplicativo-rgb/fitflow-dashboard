@@ -125,6 +125,15 @@ function EquipmentDetail() {
           </button>
         </div>
       </div>
+
+      <ExerciseVideoModal
+        open={videoOpen}
+        onClose={() => setVideoOpen(false)}
+        title="Leg Press 45°"
+        src={videoLegPress.url}
+        poster="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=900&q=80"
+      />
     </div>
+
   );
 }
