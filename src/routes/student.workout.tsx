@@ -66,8 +66,10 @@ const REST = 60;
 
 function StudentWorkout() {
   const [blocks, setBlocks] = useState<Block[]>(initial);
+  const [video, setVideo] = useState<{ title: string; src: string; poster: string } | null>(null);
   const [rest, setRest] = useState<{ remaining: number; running: boolean } | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
 
   useEffect(() => {
     if (rest?.running) {
@@ -168,11 +170,19 @@ function StudentWorkout() {
               <div className="relative h-36">
                 <img src={b.image} alt={b.name} className="absolute inset-0 h-full w-full object-cover opacity-90" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <button
+                  onClick={() => setVideo({ title: b.name, src: b.video, poster: b.image })}
+                  aria-label={`Ver vídeo de ${b.name}`}
+                  className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-neon px-3 py-1.5 text-[11px] font-bold text-primary-foreground neon-glow"
+                >
+                  <Play className="h-3 w-3 fill-current" /> Ver vídeo
+                </button>
                 <div className="absolute bottom-3 left-4 right-4">
                   <div className="text-[10px] uppercase tracking-widest text-neon">Exercício {String(i + 1).padStart(2, "0")} · {b.group}</div>
                   <h2 className="text-lg font-bold">{b.name}</h2>
                 </div>
               </div>
+
 
               {/* Sets table */}
               <div className="p-4">
