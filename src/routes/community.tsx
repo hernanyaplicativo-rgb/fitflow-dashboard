@@ -78,7 +78,7 @@ function CommunityPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Comunidade</div>
             <h1 className="mt-1 text-4xl font-bold">Treina <span className="neon-text">junto</span>.</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Feed, ligas semanais e desafios com a tua tribo PULSE.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Feed, ligas semanais e desafios com a tua tribo Mindelo Gym.</p>
           </div>
           <div className="hidden rounded-xl border border-neon/40 bg-neon/10 px-3 py-2 text-right sm:block">
             <div className="flex items-center gap-1 text-xs text-neon"><Flame className="h-3 w-3" /> Streak</div>

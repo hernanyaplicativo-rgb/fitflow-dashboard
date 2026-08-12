@@ -10,9 +10,9 @@ export const Route = createFileRoute("/analytics")({
   component: Analytics,
   head: () => ({
     meta: [
-      { title: "Analytics do Ginásio · PULSE" },
+      { title: "Analytics do Ginásio · Mindelo Gym" },
       { name: "description", content: "Receita, retenção, churn, frequência por horário e produtos mais vendidos do teu ginásio, em CVE." },
-      { property: "og:title", content: "Analytics do Ginásio · PULSE" },
+      { property: "og:title", content: "Analytics do Ginásio · Mindelo Gym" },
       { property: "og:description", content: "Relatórios avançados para donos: receita, retenção, churn e horas de pico." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -45,7 +45,7 @@ const heat = {
 const produtos = [
   { n: "Whey Protein 1kg", q: 128, r: 512_000, img: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=200&q=80" },
   { n: "Creatina 300g", q: 96, r: 288_000, img: "https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=200&q=80" },
-  { n: "Garrafa térmica PULSE", q: 74, r: 111_000, img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=200&q=80" },
+  { n: "Garrafa térmica Mindelo Gym", q: 74, r: 111_000, img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=200&q=80" },
   { n: "Luvas de treino", q: 61, r: 91_500, img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=200&q=80" },
   { n: "Barra proteica (cx. 12)", q: 53, r: 79_500, img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=200&q=80" },
 ];

@@ -55,7 +55,7 @@ export const useStore = create<AppState>((set) => ({
     { id: 2, name: "Creatina Monohidratada 300g", price: 4500, stock: 4, img: "⚡" },
     { id: 3, name: "Pré-treino Neon Burst", price: 5200, stock: 18, img: "🔥" },
     { id: 4, name: "BCAA em Pó 250g", price: 3800, stock: 0, img: "🧬" },
-    { id: 5, name: "Shaker PULSE 700ml", price: 950, stock: 120, img: "🥤" },
+    { id: 5, name: "Shaker Mindelo Gym 700ml", price: 950, stock: 120, img: "🥤" },
     { id: 6, name: "Faixa de Resistência Kit", price: 3200, stock: 7, img: "🎯" },
   ],
   setWorkout: (exercises) => set({ workout: exercises }),

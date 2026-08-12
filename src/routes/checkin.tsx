@@ -78,7 +78,7 @@ function CheckinPage() {
               </div>
             </div>
             <h2 className="mt-8 text-3xl font-bold">Check-in <span className="neon-text">confirmado</span></h2>
-            <p className="mt-2 text-sm text-muted-foreground">PULSE Mindelo · {new Date().toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })}</p>
+            <p className="mt-2 text-sm text-muted-foreground">Mindelo Gym Mindelo · {new Date().toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })}</p>
 
             <div className="mt-8 grid grid-cols-3 gap-3">
               <Tile icon={Flame} label="Sequência" value="7 dias" />

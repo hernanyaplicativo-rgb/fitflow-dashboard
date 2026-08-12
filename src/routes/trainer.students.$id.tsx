@@ -30,7 +30,7 @@ function StudentProfile() {
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-neon">Aluno ativo</div>
               <h1 className="mt-1 text-3xl font-bold sm:text-4xl">{aluno.name}</h1>
-              <div className="mt-1 text-sm text-muted-foreground">Objetivo · <span className="text-foreground">{aluno.goal}</span> · 8 meses no PULSE</div>
+              <div className="mt-1 text-sm text-muted-foreground">Objetivo · <span className="text-foreground">{aluno.goal}</span> · 8 meses no Mindelo Gym</div>
             </div>
           </div>
           <div className="flex gap-2">

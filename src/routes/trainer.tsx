@@ -63,7 +63,7 @@ function TrainerDashboard() {
               <Dumbbell className="h-4 w-4" />
             </div>
             <div>
-              <div className="text-sm font-semibold">PULSE Treinador</div>
+              <div className="text-sm font-semibold">Mindelo Gym Treinador</div>
               <div className="text-xs text-muted-foreground">Painel do professor</div>
             </div>
           </div>

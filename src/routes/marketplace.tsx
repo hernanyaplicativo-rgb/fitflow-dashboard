@@ -29,7 +29,7 @@ function Marketplace() {
               <ShoppingBag className="h-4 w-4" />
             </div>
             <div>
-              <div className="text-sm font-semibold">PULSE Marketplace</div>
+              <div className="text-sm font-semibold">Mindelo Gym Marketplace</div>
               <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Cabo Verde</div>
             </div>
           </div>
@@ -70,7 +70,7 @@ const produtos = [
   { id: 2, nome: "Whey Protein Isolado 900g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 8900, rating: 4.9, img: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80", tag: "Novo" },
   { id: 3, nome: "Pré-treino Neon Burst 300g", categoria: "Suplementos", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 5200, rating: 4.6, img: "https://images.unsplash.com/photo-1622484212850-eb596d769edc?auto=format&fit=crop&w=600&q=80" },
   { id: 4, nome: "Luvas de Treino Premium", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 1800, rating: 4.5, img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" },
-  { id: 5, nome: "Shaker PULSE 700ml", categoria: "Acessórios", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "https://images.unsplash.com/photo-1614102073832-030967418971?auto=format&fit=crop&w=600&q=80" },
+  { id: 5, nome: "Shaker Mindelo Gym 700ml", categoria: "Acessórios", loja: "Atlantic Nutrition", cidade: "Praia", preco: 950, rating: 4.7, img: "https://images.unsplash.com/photo-1614102073832-030967418971?auto=format&fit=crop&w=600&q=80" },
   { id: 6, nome: "Faixa de Resistência (Kit 5)", categoria: "Acessórios", loja: "Sal Sports Lab", cidade: "Sal", preco: 3200, rating: 4.4, img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=600&q=80" },
   { id: 7, nome: "BCAA em Pó 250g", categoria: "Suplementos", loja: "Atlantic Nutrition", cidade: "Praia", preco: 3800, rating: 4.3, img: "https://images.unsplash.com/photo-1610725664285-7c57e6eeac3f?auto=format&fit=crop&w=600&q=80" },
   { id: 8, nome: "Cinta Lombar Profissional", categoria: "Acessórios", loja: "Mindelo Fit Store", cidade: "São Vicente", preco: 2400, rating: 4.6, img: "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?auto=format&fit=crop&w=600&q=80" },
@@ -174,7 +174,7 @@ function ShopView() {
       <div className="mt-10 rounded-2xl border border-neon/30 bg-card p-6 neon-glow">
         <h3 className="text-lg font-semibold">És uma loja em Cabo Verde?</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Vende para milhares de atletas registados no PULSE. Sem mensalidade — só comissão por venda.
+          Vende para milhares de atletas registados no Mindelo Gym. Sem mensalidade — só comissão por venda.
         </p>
         <button className="mt-4 rounded-xl bg-neon px-5 py-2.5 text-sm font-semibold text-primary-foreground">
           Tornar-me parceiro

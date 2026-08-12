@@ -139,7 +139,7 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
           <Kpi icon={Wallet} label="Faturação mensal" value={fmtCVE(gym.faturacao)} delta="+18%" tone="neon" />
           <Kpi icon={GraduationCap} label="Alunos ativos" value={String(gym.alunos)} delta="+24 este mês" tone="blue" />
           <Kpi icon={Users} label="Professores" value={String(gym.professores)} delta="2 vagas abertas" tone="neon" />
-          <Kpi icon={Crown} label="Assinatura PULSE" value={gym.plano} delta="Renova 12/Nov" tone="blue" />
+          <Kpi icon={Crown} label="Assinatura Mindelo Gym" value={gym.plano} delta="Renova 12/Nov" tone="blue" />
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
@@ -191,7 +191,7 @@ function OwnerDashboard({ gym, onSwitch }: { gym: Gym; onSwitch: () => void }) {
               ))}
             </ul>
             <button 
-              onClick={() => toast.success("Pedido de gestão enviado!", { description: "Em breve, a equipa PULSE entrará em contacto para alterar o seu plano." })}
+              onClick={() => toast.success("Pedido de gestão enviado!", { description: "Em breve, a equipa Mindelo Gym entrará em contacto para alterar o seu plano." })}
               className="mt-6 w-full rounded-xl bg-neon py-2.5 text-sm font-semibold text-primary-foreground"
             >
               Gerir assinatura

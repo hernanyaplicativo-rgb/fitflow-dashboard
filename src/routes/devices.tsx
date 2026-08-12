@@ -10,9 +10,9 @@ export const Route = createFileRoute("/devices")({
   component: Devices,
   head: () => ({
     meta: [
-      { title: "Wearables & Sincronização · PULSE" },
-      { name: "description", content: "Liga o teu relógio ou pulseira ao PULSE e sincroniza passos, calorias, frequência cardíaca e sono automaticamente." },
-      { property: "og:title", content: "Wearables & Sincronização · PULSE" },
+      { title: "Wearables & Sincronização · Mindelo Gym" },
+      { name: "description", content: "Liga o teu relógio ou pulseira ao Mindelo Gym e sincroniza passos, calorias, frequência cardíaca e sono automaticamente." },
+      { property: "og:title", content: "Wearables & Sincronização · Mindelo Gym" },
       { property: "og:description", content: "Apple Health, Google Fit, Garmin, Strava e Fitbit ligados ao teu treino." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -58,7 +58,7 @@ function Devices() {
       ),
     );
     const d = devices.find((x) => x.id === id);
-    toast.success(d?.ligado ? `${d.nome} desligado` : `${d?.nome} ligado ao PULSE!`, {
+    toast.success(d?.ligado ? `${d.nome} desligado` : `${d?.nome} ligado ao Mindelo Gym!`, {
       description: d?.ligado ? undefined : "Dados de atividade a sincronizar em segundo plano.",
     });
   };
@@ -109,7 +109,7 @@ function Devices() {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-6">
             <div className="text-xs uppercase tracking-[0.2em] text-neon">Dados em tempo real</div>
-            <h1 className="mt-1 text-2xl font-bold sm:text-3xl">O teu relógio a falar com o PULSE</h1>
+            <h1 className="mt-1 text-2xl font-bold sm:text-3xl">O teu relógio a falar com o Mindelo Gym</h1>
             <p className="mt-1 max-w-md text-xs text-muted-foreground sm:text-sm">
               Passos, calorias, frequência cardíaca e sono entram automaticamente no teu progresso e na prontidão diária.
             </p>
@@ -252,7 +252,7 @@ function Devices() {
         <div className="mt-6 flex items-center gap-3 rounded-2xl border border-neon-blue/30 bg-neon-blue/5 p-4">
           <Watch className="h-5 w-5 shrink-0 text-neon-blue" />
           <p className="text-xs text-muted-foreground">
-            Com o relógio ligado, o PULSE ajusta a tua <span className="text-foreground">prontidão diária</span> e sugere carga de treino
+            Com o relógio ligado, o Mindelo Gym ajusta a tua <span className="text-foreground">prontidão diária</span> e sugere carga de treino
             com base na frequência cardíaca de repouso e na qualidade do sono.
           </p>
         </div>
