@@ -232,6 +232,15 @@ function StudentWorkout() {
           ))}
         </div>
       </div>
+
+      <ExerciseVideoModal
+        open={!!video}
+        onClose={() => setVideo(null)}
+        title={video?.title ?? ""}
+        src={video?.src ?? ""}
+        poster={video?.poster}
+      />
     </div>
+
   );
 }
